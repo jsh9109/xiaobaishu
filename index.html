@@ -172,7 +172,7 @@
             box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4); animation: pulse 2s infinite; font-size: 1.1em; cursor: pointer;
         }
 
-        /* 支付区 (图4复刻版) */
+        /* 支付区 */
         .pay-card-new {
             background: #FFF; border-radius: 15px; padding: 30px 20px; margin-top: 30px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #FFF3E0;
@@ -215,7 +215,7 @@
         }
         .upload-btn-lg:active { transform: translateY(2px); box-shadow: 0 2px 0 #870000; }
 
-        /* 新增：付款后引导框 */
+        /* 付款后引导框 */
         .after-pay-guide {
             background: #FFF; border: 1px dashed #BDBDBD; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;
         }
@@ -361,7 +361,7 @@
 
                 <div class="pay-method-title">💳 选择支付方式</div>
                 
-                <button class="quick-pay-btn btn-ali" onclick="scrollToQR()">⚡ 支付宝快捷支付</button>
+                <button class="quick-pay-btn btn-ali" onclick="aliPay()">⚡ 支付宝跳转支付</button>
                 <button class="quick-pay-btn btn-wx" onclick="scrollToQR()">⚡ 微信快捷支付</button>
 
                 <div class="pay-divider"><span>或</span></div>
@@ -498,7 +498,8 @@
         ADMIN_PWD: "admin", 
         SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v",
         PAN_LINK: "https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA",
-        PAN_CODE: "8888"
+        PAN_CODE: "8888",
+        ALIPAY_URL: "https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d"
     };
 
     const questions = [
@@ -672,6 +673,10 @@
     }
 
     function scrollToPay() { document.getElementById('paySection').scrollIntoView({behavior:'smooth'}); }
+
+    function aliPay() {
+        window.location.href = CONFIG.ALIPAY_URL;
+    }
 
     function handleUpload(e) {
         if(e.target.files.length === 0) return;
