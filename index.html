@@ -8,20 +8,22 @@
     <style>
         /* ================= 视觉系统：高端知识付费风 ================= */
         :root {
-            --primary: #8B6E4E;       /* 主色 */
-            --primary-light: #A07F56; 
-            --bg-body: #F9F3EB;       /* 背景 */
-            --bg-card: #FFFFFF;       
-            --red-price: #D35400;     
-            --green-success: #2E7D32; 
-            --border-gold: #E2C08D;
+            --primary: #8B6E4E;       /* 主色：深棕 */
+            --primary-light: #A07F56;  /* 辅色 */
+            --bg-body: #F9F3EB;       /* 背景米色 */
+            --bg-card: #FFFFFF;       /* 卡片白 */
+            --red-price: #D35400;     /* 强调红 */
+            --green-success: #2E7D32; /* 成功绿 */
+            --green-light: #E8F5E9;   /* 浅绿背景 */
+            --text-main: #333333;
+            --border-gold: #E2C08D;   /* 金色边框 */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
             background: var(--bg-body);
-            color: #333;
+            color: var(--text-main);
             line-height: 1.6;
             padding: 15px;
             min-height: 100vh;
@@ -74,7 +76,7 @@
             padding: 25px;
             margin-bottom: 30px;
         }
-        .feature-title { font-weight: bold; color: #333; font-size: 1.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .feature-title { font-weight: bold; color: var(--text-main); font-size: 1.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .feature-list li {
             list-style: none; margin-bottom: 12px; font-size: 0.95em; color: #555; display: flex; align-items: flex-start;
         }
@@ -91,12 +93,14 @@
         .progress-bar { height: 6px; background: #EEE; border-radius: 3px; margin: 10px 0 25px 0; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
         .question-text { font-size: 1.25em; font-weight: bold; margin-bottom: 25px; color: #333; line-height: 1.5; }
+        
         .option {
             padding: 18px; background: #F9F9F9; border: 1px solid #EEE;
             border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
             font-size: 1em; color: #444; font-weight: 500;
         }
         .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        
         .nav-buttons { display: flex; gap: 15px; margin-top: 30px; }
         .nav-btn { flex: 1; padding: 14px; border-radius: 10px; border: none; font-size: 1em; cursor: pointer; font-weight: bold; }
         .btn-prev { background: #F5F5F5; color: #999; }
@@ -140,7 +144,6 @@
             border-left: 3px solid #FFC107; margin-top: 10px;
         }
 
-        /* 目录图容器 */
         .catalog-container {
             margin-top: 35px; border: 2px dashed #E2C08D; border-radius: 12px; padding: 12px; background: #FFFCF5; position: relative; text-align: center;
         }
@@ -150,7 +153,6 @@
         }
         .catalog-img { width: 100%; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
-        /* 锁定区域 */
         .locked-area { 
             position: relative; border: 1px solid #EEE; border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
@@ -181,7 +183,6 @@
         
         .pay-method-title { text-align: center; color: #E65100; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
-        /* 快捷按钮 */
         .quick-pay-btn {
             width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: none;
             color: white; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
@@ -193,7 +194,6 @@
         .pay-divider::before, .pay-divider::after { content: ""; flex: 1; height: 1px; background: #EEE; }
         .pay-divider span { padding: 0 10px; }
 
-        /* 扫码区 */
         .qr-section { text-align: center; }
         .qr-flex { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
         .qr-item-new { background: white; border: 1px solid #EEE; border-radius: 8px; padding: 10px; width: 140px; }
@@ -203,12 +203,10 @@
         .qr-img-new { width: 100%; display: block; }
         .scan-tip { background: #F9F9F9; color: #666; font-size: 0.85em; padding: 8px; border-radius: 4px; margin-top: 15px; }
 
-        /* 复制转账 */
         .copy-row { display: flex; justify-content: space-between; align-items: center; background: #F5F5F5; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; }
         .copy-txt { color: #333; font-weight: 500; font-size: 0.95em; }
         .btn-copy-brown { background: #8D6E63; color: white; border: none; padding: 6px 15px; border-radius: 4px; font-size: 0.85em; cursor: pointer; }
 
-        /* 上传大按钮 */
         .upload-btn-lg {
             background: linear-gradient(180deg, #E65100 0%, #BF360C 100%);
             color: white; width: 100%; padding: 16px; border-radius: 10px; font-size: 1.1em; font-weight: bold;
@@ -217,10 +215,15 @@
         }
         .upload-btn-lg:active { transform: translateY(2px); box-shadow: 0 2px 0 #870000; }
 
-        /* 安全底栏 */
-        .safe-footer { background: #E3F2FD; color: #1976D2; text-align: center; font-size: 0.85em; padding: 12px; border-radius: 8px; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        /* 新增：付款后引导框 */
+        .after-pay-guide {
+            background: #FFF; border: 1px dashed #BDBDBD; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;
+        }
+        .guide-step-title { font-weight: bold; color: #333; font-size: 0.95em; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        .guide-step-text { font-size: 0.9em; color: #666; line-height: 1.6; }
+        .guide-step-text strong { color: #E65100; }
 
-        /* ================= 成功页 (保持) ================= */
+        /* ================= 成功页 (重点优化：网盘引导) ================= */
         .success-header { text-align: center; padding: 30px 0; border-bottom: 1px dashed #DDD; }
         .delivery-card { background: #E8F5E9; border: 2px solid #2E7D32; border-radius: 16px; padding: 25px 20px; margin: 25px 0; }
         .delivery-title { text-align: center; color: #2E7D32; font-weight: 800; font-size: 1.3em; margin-bottom: 20px; }
@@ -234,9 +237,11 @@
         .link-val { font-family: monospace; font-weight: bold; color: #333; background: #F5F5F5; padding: 4px 8px; border-radius: 4px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         .code-val { font-size: 1.4em; color: #D35400; letter-spacing: 2px; }
         .btn-copy-big { width: 100%; padding: 15px; background: #2E7D32; color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        
         .no-app-tip { margin-top: 15px; background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px; padding: 12px; text-align: center; }
         .tip-title { color: #F57C00; font-weight: bold; font-size: 0.9em; margin-bottom: 5px; }
         .tip-steps { font-size: 0.85em; color: #5D4037; display: flex; flex-direction: column; gap: 4px; }
+        
         .report-module { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-top: 4px solid var(--primary); }
         .module-title { font-size: 1.1em; font-weight: bold; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .dim-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -339,8 +344,8 @@
                 </div>
                 <div class="blur-text">
                     <p>【高危预警】根据测评数据，您在关键维度存在显著的认知偏差...</p>
-                    <p>这通常表现为：无法准确捕捉他人的潜台词...</p>
-                    <p>核心原因分析：您的社交雷达在接收“情绪信号”时存在屏蔽效应...</p>
+                    <p>这通常表现为：无法准确捕捉他人的潜台词，在复杂的利益博弈中容易成为牺牲品。</p>
+                    <p>核心原因分析：您的社交雷达在接收“情绪信号”时存在屏蔽效应，导致误判...</p>
                     <p>改进方案：建议立即学习手册第3章的“三维倾听法”进行针对性训练...</p>
                 </div>
                 <div class="unlock-overlay">
@@ -394,8 +399,13 @@
                 </label>
                 <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleUpload(event)">
                 
-                <div class="safe-footer">
-                    🔒 信息安全保证：付款后立即显示网盘链接，无需等待
+                <div class="after-pay-guide">
+                    <div class="guide-step-title">❓ 付款后如何获取资料？</div>
+                    <div class="guide-step-text">
+                        1. 截图保存您的支付凭证<br>
+                        2. 点击上方<strong>“上传付款截图”</strong>按钮<br>
+                        3. 系统核验后<strong>自动跳转</strong>显示网盘链接
+                    </div>
                 </div>
             </div>
         </div>
