@@ -759,7 +759,8 @@
     function exportCards() {
         const cards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
         if(cards.length === 0) return alert('没有卡密');
-        const text = cards.map(c => `${c.code},${c.used?'已用':'未用'}`).join('\n');
+        // 只导出纯卡号
+        const text = cards.map(c => c.code).join('\n');
         const blob = new Blob([text], { type: 'text/plain' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
