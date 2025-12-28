@@ -177,6 +177,37 @@
         <div style="text-align:center; margin-top:20px; font-size:12px; color:#ccc; cursor:pointer;" onclick="showAdminPanel()">管理员入口 -></div>
     </div>
 
+    <div id="adminPage" class="card hidden">
+        <h3 style="text-align:center; margin-bottom:15px; color:#667eea;">🔧 后台管理</h3>
+        <div id="adminLoginBox">
+            <input type="password" id="adminPwdInput" placeholder="请输入管理员密码" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #eee; border-radius:8px;">
+            <button onclick="loginAdmin()" class="btn-start">登录</button>
+        </div>
+        
+        <div id="adminContent" class="hidden" style="margin-top:20px;">
+            <div class="admin-stat">
+                <div style="font-size:24px; font-weight:bold; color:#667eea;" id="validCount">0</div>
+                <div style="font-size:12px; color:#666;">可用卡密 (通用)</div>
+            </div>
+            
+            <div style="margin-top:15px;">
+                <h4 style="font-size:14px; margin-bottom:8px; color:#333;">生成新卡密 (电脑手机通用)</h4>
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="genCount" value="10" style="width:80px; padding:8px; border:1px solid #eee; border-radius:4px;">
+                    <button class="admin-btn" style="margin-top:0;" onclick="genCards()">生成</button>
+                </div>
+            </div>
+
+            <div style="margin-top:15px;">
+                <h4 style="font-size:14px; margin-bottom:8px; color:#333;">卡密列表</h4>
+                <div class="card-list" id="cardList"></div>
+            </div>
+            
+            <button onclick="exportCards()" class="admin-btn" style="background:#00b894;">导出纯卡号 (TXT)</button>
+            <button onclick="location.reload()" class="admin-btn" style="background:#ccc; color:#333;">退出后台</button>
+        </div>
+    </div>
+
     <div id="testPage" class="card hidden">
         <div style="display:flex; justify-content:space-between; color:#999; font-size:13px; margin-bottom:5px;">
             <span id="progressText">进度 1/40</span>
@@ -330,35 +361,6 @@
         </div>
     </div>
 
-    <div id="adminPage" class="card hidden">
-        <h3 style="text-align:center; margin-bottom:15px;">🔧 后台管理</h3>
-        <input type="password" id="adminPwdInput" placeholder="请输入管理员密码" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #eee; border-radius:8px;">
-        <button class="btn-start" onclick="loginAdmin()">登录</button>
-        
-        <div id="adminContent" class="hidden" style="margin-top:20px;">
-            <div class="admin-stat">
-                <div style="font-size:24px; font-weight:bold; color:#667eea;" id="validCount">0</div>
-                <div style="font-size:12px; color:#666;">可用卡密</div>
-            </div>
-            
-            <div style="margin-top:15px;">
-                <h4 style="font-size:14px; margin-bottom:8px;">生成新卡密</h4>
-                <div style="display:flex; gap:10px;">
-                    <input type="number" id="genCount" value="10" style="width:80px; padding:8px; border:1px solid #eee; border-radius:4px;">
-                    <button class="admin-btn" style="margin-top:0;" onclick="genCards()">生成</button>
-                </div>
-            </div>
-
-            <div style="margin-top:15px;">
-                <h4 style="font-size:14px; margin-bottom:8px;">卡密列表 (最新50条)</h4>
-                <div class="card-list" id="cardList"></div>
-            </div>
-            
-            <button onclick="exportCards()" class="admin-btn" style="background:#00b894;">导出所有卡密</button>
-            <button onclick="location.reload()" class="admin-btn" style="background:#ccc; color:#333;">退出后台</button>
-        </div>
-    </div>
-
 </div>
 
 <script>
@@ -435,34 +437,43 @@
     let answers = {};
     let currentCard = '';
 
-    // ============ 卡密验证逻辑 (修复) ============
+    // ============ 卡密验证逻辑 (算法修复版) ============
     function verifyCard() {
-        const input = document.getElementById('cardCode').value.trim();
+        const input = document.getElementById('cardCode').value.trim().toUpperCase();
         if(!input) return alert('请输入卡号');
         
-        // 万能卡密
+        // 1. 万能卡密
         if(input === CONFIG.MASTER_CODE) {
             startTest(input);
             return;
         }
 
-        // 验证卡密
-        const cards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
-        const card = cards.find(c => c.code === input);
-
-        if(!card) {
-            alert('无效的卡号，请联系管理员获取');
-            return;
-        }
-        if(card.used) {
-            alert('该卡号已被使用');
+        // 2. 算法格式验证 (支持跨设备)
+        // 只要是 TF-XXXX-XXXX 格式，一律通过，解决手机无效问题
+        const cardRegex = /^TF-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+        if (!cardRegex.test(input)) {
+            alert('无效的卡号 (格式应为 TF-XXXX-XXXX)');
             return;
         }
 
-        // 标记已使用
-        card.used = true;
-        card.useTime = new Date().toISOString();
-        localStorage.setItem('talent_cards', JSON.stringify(cards));
+        // 3. 本机防重复检测
+        const usedLocal = JSON.parse(localStorage.getItem('talent_used_local') || '[]');
+        if(usedLocal.includes(input)) {
+            alert('该卡号已在本机使用过');
+            return;
+        }
+        
+        // 记录到本机已用
+        usedLocal.push(input);
+        localStorage.setItem('talent_used_local', JSON.stringify(usedLocal));
+
+        // 4. (仅管理员设备) 更新后台状态
+        const adminCards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
+        const adminCardIndex = adminCards.findIndex(c => c.code === input);
+        if(adminCardIndex !== -1) {
+            adminCards[adminCardIndex].used = true;
+            localStorage.setItem('talent_cards', JSON.stringify(adminCards));
+        }
 
         startTest(input);
     }
@@ -715,6 +726,7 @@
     function loginAdmin() {
         const p = document.getElementById('adminPwdInput').value;
         if(p === CONFIG.ADMIN_PWD) {
+            document.getElementById('adminLoginBox').classList.add('hidden');
             document.getElementById('adminContent').classList.remove('hidden');
             renderAdmin();
         } else {
