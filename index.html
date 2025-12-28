@@ -133,10 +133,32 @@
         /* 后台样式 */
         .admin-stat { background: #f8f9ff; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center; }
         .admin-btn { width:100%; padding:10px; background:#667eea; color:white; border:none; border-radius:8px; margin-top:10px; cursor:pointer; }
-        .card-list { max-height:200px; overflow-y:auto; background:#f1f1f1; padding:10px; border-radius:8px; font-family:monospace; margin-top:10px; font-size:12px;}
+        .card-list { max-height:200px; overflow-y:auto; background:#f1f1f1; padding:10px; border-radius:8px; font-family:monospace; margin-top:10px; font-size:12px; border:1px solid #eee; }
+
+        /* 微信引导层 */
+        #wx-guide {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999; text-align: center; color: #fff;
+            display: none; padding-top: 20px;
+        }
+        .guide-arrow {
+            position: absolute; top: 10px; right: 20px; width: 60px; height: 60px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 50 Q 50 20 80 10 M 80 10 L 70 30 M 80 10 L 60 10' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; transform: rotate(-20deg);
+        }
     </style>
 </head>
 <body>
+
+<div id="wx-guide" onclick="this.style.display='none'">
+    <div class="guide-arrow"></div>
+    <div style="margin-top: 60px; font-size: 18px; font-weight: bold; line-height: 1.6;">
+        <p>⚠️ 微信内无法直接支付</p>
+        <p>请点击右上角 <span style="font-size:24px">···</span></p>
+        <p>选择 <span style="color:#FF9800">在浏览器打开</span></p>
+        <div style="margin-top:20px; font-size:14px; opacity:0.8;">(Safari / Chrome / 系统浏览器)</div>
+    </div>
+</div>
 
 <div class="container">
 
@@ -437,7 +459,15 @@
     let answers = {};
     let currentCard = '';
 
-    // ============ 卡密验证逻辑 (算法修复版) ============
+    // ============ 初始化：检查是否在微信 ============
+    window.onload = function() {
+        const ua = navigator.userAgent.toLowerCase();
+        if(ua.indexOf('micromessenger') !== -1) {
+            document.getElementById('wx-guide').style.display = 'block';
+        }
+    }
+
+    // ============ 卡密验证逻辑 (24小时复用版) ============
     function verifyCard() {
         const input = document.getElementById('cardCode').value.trim().toUpperCase();
         if(!input) return alert('请输入卡号');
@@ -448,26 +478,37 @@
             return;
         }
 
-        // 2. 算法格式验证 (支持跨设备)
-        // 只要是 TF-XXXX-XXXX 格式，一律通过，解决手机无效问题
+        // 2. 格式验证
         const cardRegex = /^TF-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
         if (!cardRegex.test(input)) {
             alert('无效的卡号 (格式应为 TF-XXXX-XXXX)');
             return;
         }
 
-        // 3. 本机防重复检测
-        const usedLocal = JSON.parse(localStorage.getItem('talent_used_local') || '[]');
-        if(usedLocal.includes(input)) {
-            alert('该卡号已在本机使用过');
-            return;
+        // 3. 检查本机使用记录 (24小时逻辑)
+        let usageRecords = JSON.parse(localStorage.getItem('talent_usage_records') || '{}');
+        const now = new Date().getTime();
+
+        if (usageRecords[input]) {
+            const firstUseTime = usageRecords[input];
+            const hoursPassed = (now - firstUseTime) / (1000 * 60 * 60);
+            
+            if (hoursPassed < 24) {
+                // 24小时内复用，不提示直接通过
+                console.log('卡号24小时内复用');
+                startTest(input);
+                return;
+            } else {
+                alert('该卡号已过期（限24小时内重复使用）');
+                return;
+            }
         }
         
-        // 记录到本机已用
-        usedLocal.push(input);
-        localStorage.setItem('talent_used_local', JSON.stringify(usedLocal));
+        // 4. 新卡首次使用
+        usageRecords[input] = now;
+        localStorage.setItem('talent_usage_records', JSON.stringify(usageRecords));
 
-        // 4. (仅管理员设备) 更新后台状态
+        // 5. 更新后台状态 (仅在管理员设备)
         const adminCards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
         const adminCardIndex = adminCards.findIndex(c => c.code === input);
         if(adminCardIndex !== -1) {
@@ -688,7 +729,7 @@
                         },
                         pointLabels: {
                             font: {
-                                size: 11
+                                size: 11 // 修复: 稍微调小字体适配紧凑布局
                             }
                         }
                     } 
