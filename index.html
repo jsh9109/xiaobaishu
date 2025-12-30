@@ -101,7 +101,7 @@
         @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-5px);} }
         
         .quick-pay-btn { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: none; color: white; font-weight: bold; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
-        .btn-ali { background: #1677FF; }
+        .btn-ali { background: #00A0E9; }
         .btn-wx { background: #07C160; }
         
         .copy-box { background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: left; }
@@ -472,7 +472,7 @@
         }
     }
 
-    // ============ 卡密验证逻辑 (24小时复用版 + 强壮性修复) ============
+    // ============ 卡密验证逻辑 (数据兼容 + 24小时复用) ============
     function verifyCard() {
         const input = document.getElementById('cardCode').value.trim().toUpperCase();
         if(!input) return alert('请输入卡号');
@@ -488,8 +488,8 @@
             return;
         }
 
-        // 使用 try-catch 防止 LocalStorage 数据损坏导致的崩溃
         try {
+            // 使用新版 24小时记录表
             let usageRecords = JSON.parse(localStorage.getItem('talent_usage_v3') || '{}');
             const now = new Date().getTime();
 
@@ -510,12 +510,12 @@
             usageRecords[input] = now;
             localStorage.setItem('talent_usage_v3', JSON.stringify(usageRecords));
 
-            // 后台状态更新 (仅管理员)
-            const adminCards = JSON.parse(localStorage.getItem('talent_cards_final') || '[]');
+            // 更新后台状态 (使用旧版存储名 talent_cards 以兼容老数据)
+            const adminCards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
             const adminCardIndex = adminCards.findIndex(c => c.code === input);
             if(adminCardIndex !== -1) {
                 adminCards[adminCardIndex].used = true;
-                localStorage.setItem('talent_cards_final', JSON.stringify(adminCards));
+                localStorage.setItem('talent_cards', JSON.stringify(adminCards));
             }
 
             startTest(input);
@@ -601,8 +601,14 @@
         const top3 = sorted.slice(0,3);
         const top3Names = top3.map(s => dimensionNames[s[0]]).join('、');
 
-        // 1. 先渲染所有文字信息（确保不白屏）
         document.getElementById('resultName').innerText = `你最具有 ${top3Names} 天赋`;
+        
+        // 延迟渲染图表，解决不显示问题
+        setTimeout(() => {
+            try {
+                drawChart('radarChart', scores);
+            } catch(e) { console.error(e); }
+        }, 100);
 
         let scoreHtml = '';
         sorted.forEach((item, index) => {
@@ -630,15 +636,6 @@
             </div>
             <p class="analysis-point" style="margin-bottom:0;">但值得注意的是，你的 <strong>${dimensionNames[sorted[9][0]]}</strong> 得分较低，这可能是限制你目前职业突破的关键隐形短板。建议查看完整报告中的【避坑指南】。</p>
         `;
-
-        // 2. 延迟绘制图表（解决卡顿/显示不全的核心修复）
-        setTimeout(() => {
-            try {
-                drawChart('radarChart', scores);
-            } catch (e) {
-                console.error("图表绘制失败", e);
-            }
-        }, 100); // 100ms 延迟，给页面渲染留出时间
 
         window.scrollTo(0,0);
     }
@@ -671,7 +668,7 @@
 
         document.getElementById('detailedName').innerText = `你最具有 ${top3Names} 天赋`;
         
-        // 延迟绘制详细页图表
+        // 延迟渲染详细页图表
         setTimeout(() => {
             try {
                 drawChart('radarChart2', scores);
@@ -711,8 +708,7 @@
     // 修复雷达图显示具体分数
     function drawChart(id, scores) {
         const ctx = document.getElementById(id);
-        if (!ctx) return; // 安全检查
-
+        if(!ctx) return;
         const chartStatus = Chart.getChart(id);
         if (chartStatus != undefined) { chartStatus.destroy(); }
 
@@ -744,7 +740,7 @@
                         },
                         pointLabels: {
                             font: {
-                                size: 11 // 修复: 稍微调小字体适配紧凑布局
+                                size: 11
                             }
                         }
                     } 
@@ -794,7 +790,7 @@
         const count = parseInt(document.getElementById('genCount').value);
         if(!count || count < 1) return alert('请输入数量');
         
-        let cards = JSON.parse(localStorage.getItem('talent_cards_final') || '[]');
+        let cards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
         currentBatchCards = []; 
         
         for(let i=0; i<count; i++) {
@@ -804,14 +800,14 @@
         }
         
         cards = [...currentBatchCards, ...cards];
-        localStorage.setItem('talent_cards_final', JSON.stringify(cards));
+        localStorage.setItem('talent_cards', JSON.stringify(cards));
         
         alert(`成功生成 ${count} 个卡密！\n请点击【导出本次生成】下载`);
         renderAdmin();
     }
 
     function renderAdmin() {
-        const cards = JSON.parse(localStorage.getItem('talent_cards_final') || '[]');
+        const cards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
         const validCount = cards.filter(c => !c.used).length;
         document.getElementById('validCount').innerText = validCount;
 
@@ -837,7 +833,7 @@
     }
 
     function exportAllCards() {
-        const cards = JSON.parse(localStorage.getItem('talent_cards_final') || '[]');
+        const cards = JSON.parse(localStorage.getItem('talent_cards') || '[]');
         if(cards.length === 0) return alert('没有卡密');
         const text = cards.map(c => c.code).join('\n');
         const blob = new Blob([text], { type: 'text/plain' });
