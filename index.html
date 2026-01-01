@@ -16,7 +16,8 @@
             --bg-card: #FFFFFF;
             --accent: #D55D30;        /* 强调色：陶土橙 */
             --btn-red: #FF4D4F;       /* 解锁按钮红 */
-            --success: #52c41a;       /* 成功绿 */
+            --text-dark: #2c1810;
+            --text-gray: #665c54;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
@@ -25,39 +26,39 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #FBF8F2 0%, #FAF0E6 100%);
             min-height: 100vh;
-            padding: 10px; /* V10.1 减少Body内边距 */
-            color: #333;
-            line-height: 1.5; /* V10.1 稍微减小行高 */
+            padding: 10px;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
-        .container { max-width: 800px; margin: 0 auto; padding-bottom: 40px; /* V10.1 减少底部留白 */ }
+        .container { max-width: 800px; margin: 0 auto; padding-bottom: 60px; }
         .hidden { display: none !important; }
 
         .card {
             background: white;
-            border-radius: 16px; /* V10.1 稍微减小圆角 */
-            padding: 20px; /* V10.1 减少卡片内边距 */
+            border-radius: 16px;
+            padding: 20px;
             box-shadow: 0 5px 20px rgba(160, 127, 86, 0.06);
-            margin-bottom: 15px; /* V10.1 减少卡片间距 */
+            margin-bottom: 15px;
             animation: fadeIn 0.5s ease;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* 头部与输入 */
-        .header { text-align: center; margin-bottom: 20px; /* V10.1 减少头部间距 */ }
+        .header { text-align: center; margin-bottom: 20px; }
         .header h1 { color: var(--primary); font-size: 1.6em; margin-bottom: 5px; font-weight: 800; }
-        .header p { color: #666; font-size: 0.9em; margin-bottom: 8px;}
+        .header p { color: var(--text-gray); font-size: 0.9em; margin-bottom: 8px;}
         .badge { background: #EFEBE5; color: var(--primary); padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: bold; }
 
         .grid-box { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 10px; /* V10.1 减少网格间距 */
-            margin: 15px 0; /* V10.1 减少上下间距 */
+            gap: 10px; 
+            margin: 15px 0; 
         }
         .grid-item {
             background: #FFFBF5;
-            padding: 12px; /* V10.1 减少内边距 */
+            padding: 12px;
             border-radius: 10px;
             text-align: center;
             border: 1px solid #F5E8D6;
@@ -67,23 +68,23 @@
 
         .feature-list {
             background: #F9F9F9;
-            padding: 15px; /* V10.1 减少内边距 */
+            padding: 15px;
             border-radius: 10px;
             font-size: 0.9em;
-            color: #555;
-            margin-bottom: 20px; /* V10.1 减少间距 */
+            color: var(--text-gray);
+            margin-bottom: 20px;
         }
         .feature-item { margin-bottom: 6px; display: flex; align-items: center; }
         .check { color: var(--primary); margin-right: 6px; font-weight: bold; }
 
         .input-group input {
             width: 100%; padding: 14px; border: 2px solid #F5E8D6; border-radius: 50px;
-            font-size: 1.1em; text-align: center; -webkit-appearance: none; margin-bottom: 12px; /* V10.1 */
+            font-size: 1.1em; text-align: center; -webkit-appearance: none; margin-bottom: 12px;
             background: #FFF;
         }
         
         .btn {
-            width: 100%; padding: 14px; border: none; border-radius: 50px; /* V10.1 按钮高度微调 */
+            width: 100%; padding: 14px; border: none; border-radius: 50px;
             font-size: 1.15em; font-weight: bold; cursor: pointer; display: block;
         }
         .btn-primary { 
@@ -92,20 +93,20 @@
             box-shadow: 0 6px 15px rgba(160, 127, 86, 0.25); 
         }
         .btn-secondary { 
-            background: white; color: var(--primary); border: 2px solid var(--primary); margin-top: 12px; /* V10.1 */
+            background: white; color: var(--primary); border: 2px solid var(--primary); margin-top: 12px;
         }
 
         /* 答题页 */
         .progress-bar { height: 6px; background: #F5E8D6; border-radius: 3px; margin-bottom: 15px; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; border-radius: 3px; }
-        .question-text { font-size: 1.2em; font-weight: bold; margin-bottom: 20px; line-height: 1.4; color: #333; min-height: 60px; /* V10.1 紧凑化 */ }
+        .question-text { font-size: 1.2em; font-weight: bold; margin-bottom: 20px; line-height: 1.4; color: #333; min-height: 60px; }
         .option {
-            padding: 15px; background: #FDF8F2; border: 1px solid #F5E8D6; /* V10.1 减少选项内边距 */
+            padding: 15px; background: #FDF8F2; border: 1px solid #F5E8D6;
             border-radius: 10px; margin-bottom: 10px; cursor: pointer; color: #555; transition: all 0.2s; font-size: 1em;
         }
         .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
         
-        .nav-box { display: flex; gap: 10px; margin-top: 20px; /* V10.1 */ }
+        .nav-box { display: flex; gap: 10px; margin-top: 20px; }
         .nav-btn {
             flex: 1; padding: 12px; border-radius: 10px; border: none; font-size: 0.95em; font-weight: bold; cursor: pointer;
         }
@@ -115,27 +116,26 @@
         /* 结果页 */
         .result-banner {
             background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white; padding: 25px 15px; /* V10.1 减少内边距 */
-            border-radius: 12px; text-align: center;
+            color: white; padding: 25px 15px; border-radius: 12px; text-align: center;
         }
         .rpi-icon { font-size: 4em; margin: 8px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .rpi-name { font-size: 1.6em; font-weight: bold; margin-bottom: 4px;}
         
-        .chart-box { height: 300px; margin: 15px 0; position: relative; /* V10.1 减少高度和间距 */ } 
+        .chart-box { height: 300px; margin: 15px 0; position: relative; } 
 
-        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; /* V10.1 */ }
-        .score-card { background: #FFFBF5; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--primary); /* V10.1 紧凑内边距 */ }
+        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+        .score-card { background: #FFFBF5; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--primary); }
         .score-label { color: var(--primary); font-size: 0.85em; font-weight: bold; }
         .score-val { font-size: 1.3em; font-weight: bold; color: #333; margin-top: 2px; }
 
         /* 免费内容增强 */
-        .free-section { margin: 20px 0; /* V10.1 减少板块间距 */ }
-        .section-title { font-size: 1.1em; font-weight: bold; color: #333; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 10px; /* V10.1 */ }
+        .free-section { margin: 20px 0; }
+        .section-title { font-size: 1.1em; font-weight: bold; color: #333; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 10px; }
         
         .long-text-analysis, .text-block {
             font-size: 0.9em; color: #444; line-height: 1.7; 
             background: #FAFAFA; padding: 15px; border-radius: 10px; 
-            text-align: justify; margin-bottom: 10px; border: 1px solid #EEE; /* V10.1 */
+            text-align: justify; margin-bottom: 10px; border: 1px solid #EEE;
         }
 
         .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
@@ -143,7 +143,7 @@
 
         /* 16型总览样式 */
         .all-types-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; /* V10.1 */
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px;
         }
         .type-item {
             background: #FFF; border: 1px solid #EFEBE5; border-radius: 6px;
@@ -163,11 +163,11 @@
 
         /* 解锁遮罩 */
         .locked-section {
-            position: relative; margin-top: 25px; border-radius: 12px; /* V10.1 */
+            position: relative; margin-top: 25px; border-radius: 12px;
             overflow: hidden; border: 1px solid #eee; background: #fff;
         }
         .blur-content {
-            filter: blur(6px); user-select: none; padding: 15px; /* V10.1 */
+            filter: blur(6px); user-select: none; padding: 15px;
             background: #fff; opacity: 0.5; font-size: 0.9em; line-height: 1.6;
         }
         .lock-overlay {
@@ -175,11 +175,11 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             background: rgba(255, 255, 255, 0.5); z-index: 10;
         }
-        .lock-icon { font-size: 2.5em; margin-bottom: 8px; /* V10.1 */ }
-        .lock-text { font-size: 1em; font-weight: bold; color: #333; margin-bottom: 15px; /* V10.1 */ }
+        .lock-icon { font-size: 2.5em; margin-bottom: 8px; }
+        .lock-text { font-size: 1em; font-weight: bold; color: #333; margin-bottom: 15px; }
         .unlock-btn-red {
             background: linear-gradient(135deg, #FF4D4F 0%, #D32F2F 100%);
-            color: white; padding: 12px 30px; border-radius: 50px; /* V10.1 */
+            color: white; padding: 12px 30px; border-radius: 50px;
             font-size: 1.05em; font-weight: bold; border: none;
             cursor: pointer; box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
             animation: pulse-red 2s infinite;
@@ -188,14 +188,14 @@
 
         /* 解锁区 */
         .unlock-box {
-            background: #FFF; border-top: 1px solid #eee; padding: 20px 15px; /* V10.1 */
+            background: #FFF; border-top: 1px solid #eee; padding: 20px 15px;
             border-radius: 0 0 12px 12px; text-align: center; margin-top: -10px;
         }
-        .price { color: var(--accent); font-size: 2.4em; font-weight: bold; margin: 8px 0; line-height: 1; /* V10.1 */ }
+        .price { color: var(--accent); font-size: 2.4em; font-weight: bold; margin: 8px 0; line-height: 1; }
         .price s { color: #999; font-size: 0.45em; font-weight: normal; margin-left: 5px; }
         
         .pay-btn {
-            display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px; /* V10.1 */
+            display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px;
             border-radius: 50px; font-weight: bold; color: white; margin-bottom: 10px; text-decoration: none; font-size: 1em;
         }
         .pay-ali { background: #00A3EE; box-shadow: 0 3px 8px rgba(0, 163, 238, 0.3); }
@@ -203,52 +203,68 @@
         
         .upload-btn-lg {
             background: linear-gradient(135deg, #FF5722 0%, #D84315 100%);
-            color: white; width: 100%; padding: 15px; border-radius: 50px; /* V10.1 */
+            color: white; width: 100%; padding: 15px; border-radius: 50px;
             font-size: 1.1em; font-weight: bold; display: flex; align-items: center; justify-content: center;
             margin-top: 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(216, 67, 21, 0.3);
             animation: pulse 2s infinite;
         }
 
-        /* 支付后引导 - 样式优化 */
+        /* 支付后引导 */
         .pay-guide {
             background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px;
-            padding: 12px 15px; margin-top: 15px; text-align: left; color: #E65100; font-size: 0.85em; /* V10.1 */
+            padding: 12px 15px; margin-top: 15px; text-align: left; color: #E65100; font-size: 0.85em;
             line-height: 1.6;
         }
         .pay-guide strong { color: #BF360C; }
 
         /* 招募学徒 */
-        .recruit-box { background: #FFFBF5; border: 1px dashed var(--primary); padding: 12px; text-align: center; border-radius: 10px; margin-top: 25px; /* V10.1 */ }
+        .recruit-box { background: #FFFBF5; border: 1px dashed var(--primary); padding: 12px; text-align: center; border-radius: 10px; margin-top: 25px; }
         .copy-btn-sm { background: var(--accent); color: white; border: none; padding: 3px 8px; border-radius: 4px; cursor: pointer; margin-left: 5px; font-size: 0.8em; }
 
-        .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; font-size: 0.85em; /* V10.1 */ }
+        .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; font-size: 0.85em; }
         .admin-stat { background: #F5F5F5; padding: 8px; text-align: center; border-radius: 6px; margin-bottom: 12px; font-size: 0.9em; }
         #wx-guide { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; text-align: center; color: #fff; display: none; padding-top: 20px; }
 
-        /* 付费报告样式 */
-        .report-section { margin-bottom: 20px; /* V10.1 */ }
-        .report-title { font-size: 1.1em; font-weight: bold; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; padding-bottom: 8px; /* V10.1 */ }
-        .report-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; margin-right: 8px; }
-        .report-content { background: #FAFAFA; padding: 15px; border-radius: 10px; color: #444; line-height: 1.7; text-align: justify; border: 1px solid #EEE; font-size: 0.95em; /* V10.1 */ }
-        .report-list { padding-left: 18px; margin: 0; color: #555; }
-        .report-list li { margin-bottom: 6px; /* V10.1 */ }
-        .warning-box { background: #FFF5F5; border: 1px solid #FFCDD2; color: #D32F2F; padding: 12px; border-radius: 10px; display: flex; align-items: flex-start; font-size: 0.9em; /* V10.1 */ }
-        .warning-box::before { content: '⚠️'; margin-right: 8px; font-size: 1.1em; }
+        /* === 深度付费报告专属样式 (大幅增强) === */
+        .report-section { margin-bottom: 30px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
+        .report-section:last-child { border-bottom: none; }
         
-        .dim-detail-box { margin-bottom: 12px; /* V10.1 */ }
-        .dim-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px; color: #555; font-size: 0.85em; }
-        .dim-bar-bg { height: 5px; background: #eee; border-radius: 3px; overflow: hidden; }
-        .dim-bar-val { height: 100%; background: var(--primary); border-radius: 3px; }
-        .dim-desc { font-size: 0.85em; color: #666; margin-top: 4px; line-height: 1.4; text-align: justify; }
-        .psych-box { background: #FDF8F2; padding: 12px; border-radius: 8px; color: #5D4037; font-size: 0.9em; line-height: 1.7; text-align: justify; border-left: 3px solid var(--primary); /* V10.1 */ }
-        .advice-card-item { background: #FAFAFA; padding: 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #eee; /* V10.1 */ }
-        .advice-title { font-weight: bold; color: #333; margin-bottom: 4px; font-size: 0.95em; }
-        .advice-content { font-size: 0.9em; color: #666; line-height: 1.5; }
+        .report-title { 
+            font-size: 1.25em; font-weight: 800; color: #4A3B32; margin-bottom: 15px; 
+            border-left: 5px solid var(--primary); padding-left: 12px; display: flex; align-items: center;
+        }
         
-        /* V10.1 新增提示框样式 */
-        .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9em; display: flex; align-items: center; }
-        .alert-success { background: #F6FFED; border: 1px solid #B7EB8F; color: #389E0D; }
-        .alert-icon { margin-right: 8px; font-size: 1.2em; }
+        .report-p {
+            font-size: 0.95em; color: #555; line-height: 1.8; text-align: justify; margin-bottom: 15px;
+        }
+        
+        .deep-card {
+            background: #FAFAFA; border-radius: 12px; padding: 20px; margin-bottom: 15px;
+            border: 1px solid #EEE; position: relative;
+        }
+        .deep-card-title {
+            font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 1.05em;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .deep-tag {
+            background: #EFEBE5; font-size: 0.8em; padding: 2px 8px; border-radius: 4px; color: #5D4037;
+        }
+        
+        /* 维度分析条 */
+        .dim-box { margin-bottom: 20px; }
+        .dim-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.9em; font-weight: bold; color: #444; }
+        .dim-progress { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+        .dim-val { height: 100%; background: linear-gradient(90deg, #D55D30, #A07F56); border-radius: 4px; }
+        .dim-text { font-size: 0.9em; color: #666; line-height: 1.6; text-align: justify; background: #FFFBF5; padding: 10px; border-radius: 8px; }
+
+        /* 30天计划表格化 */
+        .plan-week { margin-bottom: 15px; background: #FFF; border: 1px solid #EFEBE5; border-radius: 10px; padding: 15px; }
+        .week-title { color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 1em; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+        .week-content { font-size: 0.9em; color: #555; line-height: 1.6; }
+
+        .quote-box {
+            font-style: italic; color: #888; border-left: 3px solid #ccc; padding-left: 15px; margin: 20px 0; font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -304,7 +320,7 @@
     </div>
 
     <div id="testPage" class="card hidden">
-        <div style="display:flex; justify-content:space-between; font-size:0.85em; color:#999; margin-bottom:5px;">
+        <div style="display:flex; justify-content:space-between; font-size:0.9em; color:#999; margin-bottom:5px;">
             <span id="progressText">进度 1/40</span>
             <span>单选</span>
         </div>
@@ -353,14 +369,19 @@
 
         <div class="locked-section" onclick="document.querySelector('.upload-btn-lg').click()">
             <div class="blur-content">
-                <p>这里是深度报告的核心内容，包含30天关系优化计划、专属沟通话术以及避坑指南。解锁后，你将获得一份为你量身定制的关系说明书。</p>
-                <p>... (此处省略 2000 字深度分析) ...</p>
-                <p>... (此处省略 30 天行动指南) ...</p>
-                <p>... (此处省略 4 大维度深度解码) ...</p>
+                <p><strong>🔒 深度板块 1：四维人格深度拆解 (2000字)</strong><br>
+                详细分析你在主导性、独立性、稳定性、务实度上的具体表现，揭示潜意识行为模式。</p>
+                <p><strong>🔒 深度板块 2：内在小孩与依恋需求</strong><br>
+                挖掘你关系中不安全感的来源，以及你真正渴望的伴侣类型。</p>
+                <p><strong>🔒 深度板块 3：30天关系优化实操</strong><br>
+                针对你的性格弱点，定制四周的改变计划，从觉察到复盘，手把手教你经营。</p>
+                <p><strong>🔒 深度板块 4：关键时刻沟通话术</strong><br>
+                在冲突、冷战、需求不满时，该如何高情商表达？</p>
+                <br><br>
             </div>
             <div class="lock-overlay">
                 <div class="lock-icon">🔒</div>
-                <div class="lock-text">解锁查看完整深度报告 + 行动指南</div>
+                <div class="lock-text">解锁 3000字+ 深度心理报告</div>
                 <button class="unlock-btn-red">立即解锁 (仅需 ¥2.99)</button>
             </div>
         </div>
@@ -409,13 +430,8 @@
     </div>
 
     <div id="fullPage" class="card hidden">
-        <div class="alert alert-success">
-            <span class="alert-icon">✅</span>
-            <span><strong>解锁成功！</strong> 以下是您的完整深度评估报告。</span>
-        </div>
-
         <div class="result-banner" style="margin-bottom:20px;">
-            <h2>📝 深度评估报告</h2>
+            <h2>📝 深度心理评估报告</h2>
             <div style="font-size:0.85em; opacity:0.9;">你的关系角色全解析</div>
         </div>
 
@@ -423,30 +439,41 @@
             <canvas id="fullRadarChart"></canvas>
         </div>
 
+        <div class="quote-box">
+            "亲密关系不是寻找一个完美的人，而是学会用完美的眼光去欣赏一个不完美的人。这份报告将是你的一面镜子。"
+        </div>
+
         <div class="report-section">
-            <div class="report-title">📊 四维性格深度解码</div>
+            <div class="report-title">📊 第一章：四维人格深度解码</div>
+            <div class="report-p">我们从主导性、独立性、稳定性和务实度四个维度，对你的关系人格进行了深度拆解。这不仅是分数的展示，更是你潜意识行为模式的映射。</div>
             <div id="dimensionAnalysisContent"></div>
         </div>
 
         <div class="report-section">
-            <div class="report-title">🧠 潜意识与依恋需求</div>
-            <div id="subconsciousContent" class="psych-box"></div>
-        </div>
-
-        <div class="report-section">
-            <div class="report-title">💡 关系中的盲点与风险</div>
-            <div id="fullAnalysis" class="report-content"></div>
-        </div>
-
-        <div class="report-section">
-            <div class="report-title">📅 30天关系优化实操</div>
-            <div class="report-content" style="background:#FDF8F2;">
-                <ul id="actionPlan" class="report-list"></ul>
+            <div class="report-title">🧠 第二章：潜意识与依恋需求</div>
+            <div class="deep-card">
+                <div class="deep-card-title">你的“内在小孩”在渴望什么？</div>
+                <div id="subconsciousContent" class="report-p"></div>
             </div>
+            <div class="deep-card">
+                <div class="deep-card-title">你的依恋模式分析</div>
+                <div id="attachmentContent" class="report-p"></div>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <div class="report-title">💡 第三章：优势与盲点</div>
+            <div class="report-content" id="fullAnalysis"></div>
+        </div>
+
+        <div class="report-section">
+            <div class="report-title">📅 第四章：30天关系优化实操</div>
+            <div class="report-p">基于你的性格短板，我们为你定制了为期4周的改变计划。请务必按周执行，你会看到关系的惊人变化。</div>
+            <div id="actionPlan"></div>
         </div>
         
         <div class="report-section">
-            <div class="report-title">💬 关键时刻沟通话术</div>
+            <div class="report-title">💬 第五章：关键时刻沟通话术</div>
             <div id="communicationTips"></div>
         </div>
 
@@ -471,16 +498,16 @@
         </div>
         <div id="adminMain" class="hidden">
             <div class="admin-stat">可用卡密：<span id="validNum" style="font-weight:bold; color:green;">0</span></div>
-            <div style="margin:15px 0; display:flex; gap:8px;">
-                <input type="number" id="genCount" value="10" style="width:70px; padding:8px; border:1px solid #ddd; border-radius:5px;">
-                <button class="copy-btn-sm" onclick="genCards()" style="padding:8px 15px; font-size:0.9em;">生成(NS开头)</button>
+            <div style="margin:20px 0; display:flex; gap:10px;">
+                <input type="number" id="genCount" value="10" style="width:80px; padding:10px; border:1px solid #ddd; border-radius:5px;">
+                <button class="copy-btn-sm" onclick="genCards()" style="padding:10px 20px;">生成(NS开头)</button>
             </div>
-            <div class="card-list" id="cardList" style="max-height:200px; overflow-y:auto; border:1px solid #eee; padding:10px; margin-bottom:15px; font-size:0.9em;"></div>
-            <div style="display:flex; gap:8px;">
-                <button class="copy-btn-sm" style="background:#2E7D32; padding:8px; flex:1; font-size:0.9em;" onclick="exportNew()">导出本次</button>
-                <button class="copy-btn-sm" style="background:#00b894; padding:8px; flex:1; font-size:0.9em;" onclick="exportAll()">导出全部</button>
+            <div class="card-list" id="cardList" style="max-height:200px; overflow-y:auto; border:1px solid #eee; padding:10px; margin-bottom:15px;"></div>
+            <div style="display:flex; gap:10px;">
+                <button class="copy-btn-sm" style="background:#2E7D32; padding:10px; flex:1;" onclick="exportNew()">导出本次</button>
+                <button class="copy-btn-sm" style="background:#00b894; padding:10px; flex:1;" onclick="exportAll()">导出全部</button>
             </div>
-            <button class="btn btn-secondary" onclick="location.reload()" style="margin-top:20px;">退出</button>
+            <button class="btn btn-secondary" onclick="location.reload()" style="margin-top:25px;">退出</button>
         </div>
     </div>
 
@@ -678,73 +705,119 @@ function handleUpload(e) {
         document.querySelector('.upload-btn-lg').innerText = '⏳ 正在分析数据...';
         fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
             method:'POST', headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({title:'💰新订单-年上年下-V10.1', desp:'有新截图'})
+            body:JSON.stringify({title:'💰新订单-年上年下-V11.0', desp:'有新截图'})
         }).catch(()=>{});
         
         setTimeout(showFull, 1500);
     }
 }
 
+// === 核心修改：生成 3000字 深度报告 ===
 function showFull() {
     document.getElementById('freePage').classList.add('hidden');
     document.getElementById('fullPage').classList.remove('hidden');
     let res = JSON.parse(sessionStorage.getItem('res'));
     let t = types[res.k];
-    
-    // 1. 维度深度解码
-    const dims = ['主导力', '独立性', '稳定性', '务实度'];
-    const dimDescs = [
-        ['你的主导意愿较低，更喜欢配合。这让你成为很好的合作伙伴，但也容易失去自我。', '你的主导力适中，能屈能伸。在关键时刻能站出来，平时也乐于倾听。', '你有极强的主导欲和掌控力。你习惯为关系负责，但需注意不要变成独裁者。'],
-        ['你非常渴望陪伴和依赖，独处时容易焦虑。你的安全感很大程度来源于伴侣。', '你既享受陪伴，也能安于独处。你在关系中保持着健康的距离感。', '你是一匹独狼，极度需要个人空间。如果伴侣太粘人，你会感到窒息。'],
-        ['你喜欢新鲜感和变化，讨厌一成不变。你需要一个能陪你一起疯的伴侣。', '你在稳定与探索之间找到了平衡。既能享受安稳日子，也不排斥偶尔的冒险。', '你极度追求稳定和可预测性。任何突发状况都会让你感到不安。'],
-        ['你是无可救药的浪漫主义者，感觉对你来说比面包重要得多。', '你既看重感觉，也考虑现实。你不会为了爱情饿肚子，也不会为了面包将就。', '你是彻底的务实派。你认为没有物质基础的爱情是一盘散沙。']
-    ];
-    
+    let s = res.s; // 分数数组
+
+    // 1. 生成四维深度解读 (动态生成长文)
     let dimHtml = '';
-    res.s.forEach((score, i) => {
-        let level = score < 40 ? 0 : (score < 70 ? 1 : 2);
-        let levelText = ['偏低', '适中', '偏高'][level];
+    const dims = ['主导力', '独立性', '稳定性', '务实度'];
+    const dimDetails = [
+        {
+            high: '你在关系中习惯掌握主动权，这源于你强大的责任感和对效率的追求。你希望事情能按部就班地进行，这种掌控欲在危机时刻是定海神针，但在日常生活中可能变成伴侣的压力源。你潜意识里认为“只有我来做，事情才不会搞砸”，这反映了你对失控的深层恐惧。',
+            mid: '你拥有灵活的领导力，能够在引导和配合之间自由切换。你尊重伴侣的意见，但在关键问题上会有自己的坚持。这种平衡让你既不会显得咄咄逼人，也不会毫无主见。',
+            low: '你更倾向于配合伴侣的节奏，是一个优秀的倾听者和支持者。但这并不代表你没有想法，而是你更看重关系的和谐，愿意为了避免冲突而妥协。你需要警惕的是，长期的顺从可能会导致自我价值感的流失。'
+        },
+        {
+            high: '你的精神世界非常丰富，不需要时刻依赖伴侣来获得满足感。你享受独处，有清晰的个人边界。在伴侣眼中，你可能显得有些疏离或冷淡，但实际上你只是需要通过独处来充电。你需要学习如何让伴侣感受到被需要。',
+            mid: '你在依赖和独立之间找到了健康的平衡点。你享受两个人的亲密，也能从容应对一个人的时光。这种安全型的依恋模式让你在关系中既不患得患失，也不令人感到窒息。',
+            low: '你非常渴望与伴侣建立深度的连接，分离会让你感到焦虑。你的快乐很大程度上取决于伴侣的态度。这种高浓度的情感需求虽然能带来极致的甜蜜，但也容易让你陷入患得患失的情绪漩涡。'
+        },
+        {
+            high: '你追求可预测的生活，讨厌突如其来的变故。你的生活轨迹清晰而稳定，这给伴侣带来了极大的安全感。但有时你可能因为过于保守而错过了生活中的惊喜和可能性。',
+            mid: '你既享受安稳的日常，也不排斥偶尔的冒险。你能够接受适度的变化，并将其视为生活的调味剂。这种弹性让你在面对生活波折时具有较强的适应能力。',
+            low: '你是天生的冒险家，讨厌一成不变的生活。你追求新鲜感和刺激，总是在寻找下一个兴奋点。这让你充满魅力，但也可能让渴望安稳的伴侣感到不安，觉得你难以捉摸。'
+        },
+        {
+            high: '你是彻底的现实主义者。你认为爱情必须建立在坚实的物质基础之上。你做决策时理智先行，很少被情绪冲昏头脑。这让你在长择关系中非常靠谱，但有时可能会被认为缺乏浪漫情调。',
+            mid: '你试图在理想和现实之间寻找平衡。你既看重当下的感受，也会考虑未来的可行性。你不会为了爱情盲目牺牲，也不会为了物质完全妥协。',
+            low: '你是无可救药的浪漫主义者。你相信感觉至上，为了爱情愿意付出一切。这种纯粹的特质非常动人，但在面对柴米油盐的现实考验时，你可能会感到巨大的落差和无力。'
+        }
+    ];
+
+    dims.forEach((name, i) => {
+        let level = s[i] > 66 ? 'high' : (s[i] > 33 ? 'mid' : 'low');
+        let levelText = level === 'high' ? '高' : (level === 'mid' ? '中' : '低');
         dimHtml += `
             <div class="dim-detail-box">
-                <div class="dim-header"><span>${dims[i]} (${score}分)</span><span>${levelText}</span></div>
-                <div class="dim-bar-bg"><div class="dim-bar-val" style="width:${score}%"></div></div>
-                <div class="dim-desc">${dimDescs[i][level]}</div>
+                <div class="dim-header"><span>${name}指数：${s[i]}</span><span>${levelText}倾向</span></div>
+                <div class="dim-bar-bg"><div class="dim-bar-val" style="width:${s[i]}%"></div></div>
+                <div class="dim-desc">${dimDetails[i][level]}</div>
             </div>
         `;
     });
     document.getElementById('dimensionAnalysisContent').innerHTML = dimHtml;
 
-    // 2. 潜意识
-    let subHtml = `<p><strong>内在小孩需求：</strong>你内心深处渴望一个能够${res.s[1]>60 ? '尊重你独立空间' : '无时无刻关注你'}的对象。${res.s[0]>60 ? '你通过掌控来获得安全感，害怕失控。' : '你通过顺从来获得安全感，害怕冲突。'}</p>`;
-    document.getElementById('subconsciousContent').innerHTML = subHtml;
+    // 2. 潜意识与依恋 (长文本)
+    let subText = `你的内在小孩极度渴望被<strong>${s[1]>50 ? '尊重和看见' : '呵护和关注'}</strong>。
+    ${s[0]>60 ? '你的掌控欲其实是一种防御机制，用来抵御童年时期可能经历过的无助感。你害怕一旦放手，事情就会变得糟糕，因此你不得不让自己变得强大。' : '你的顺从其实是一种生存策略，源于潜意识里对冲突的恐惧。你担心如果坚持自我，就会失去对方的爱，因此你习惯性地压抑自己的需求。'}
+    <br><br>
+    在依恋模式上，你表现出<strong>${s[1]>60 && s[2]>60 ? '疏离型' : (s[1]<40 ? '焦虑型' : '安全型')}</strong>的特征。这意味着在亲密关系中，当压力来袭时，你倾向于${s[1]>60 ? '退回到自己的壳里，通过回避来保护自己' : '紧抓对方不放，通过不断确认来获得安心'}。`;
+    document.getElementById('subconsciousContent').innerHTML = subText;
+    document.getElementById('attachmentContent').innerHTML = `你真正需要的伴侣，不是一个完美的偶像，而是一个能够接纳你真实面目的人。对于现在的你来说，<strong>${s[3]>60 ? '情绪价值的提供' : '实际行动的支持'}</strong>远比${s[3]>60 ? '空洞的承诺' : '甜言蜜语'}更能打动你的心。`;
 
     // 3. 关系盲点
-    document.getElementById('fullAnalysis').innerHTML = `<p>✅ <strong>核心优势：</strong>${t.adv}</p><p>🚧 <strong>盲点与风险：</strong>${t.risk}</p>`;
-    
-    // 4. 30天计划
-    let plans = [
-        '第1周 [觉察]：记录下你感到"焦虑"或"愤怒"的时刻，分析是因为需求未被满足，还是边界被侵犯。',
-        '第2周 [沟通]：使用"我语境"（I-statement）表达需求。例如："我感到...因为..."，而不是"你总是..."。',
-        '第3周 [平衡]：如果分数为高主导，尝试放权；如果分数为高依赖，尝试独立完成一件小事。',
-        '第4周 [复盘]：回顾关系变化，找到最舒适的相处距离。'
-    ];
-    document.getElementById('actionPlan').innerHTML = plans.map(x=>`<li>${x}</li>`).join('');
-    
-    // 5. 沟通话术
-    let commHtml = `
-        <div class="advice-card-item">
-            <div class="advice-title">🔥 当发生冲突时</div>
-            <div class="advice-content">“我现在情绪有点激动，为了不误伤你，我们需要暂停15分钟。但我保证15分钟后回来解决问题。”</div>
+    document.getElementById('fullAnalysis').innerHTML = `<p>✅ <strong>核心优势：</strong>${t.adv}</p><p>🚧 <strong>盲点与风险：</strong>${t.risk}</p><p>你的务实度（${s[3]}）决定了你在做决策时更看重${s[3]>60 ? '长期收益和稳定性，这让你在关系中非常负责，但有时会显得功利' : '当下的情感体验和直觉，这让你充满魅力，但容易忽视潜在的现实风险'}。</p>`;
+
+    // 4. 30天计划 (极度详细)
+    let plans = `
+        <div class="plan-week">
+            <div class="week-title">📅 第1周：自我觉察与去习惯化</div>
+            <div class="week-content">
+                本周重点在于打破你的惯性模式。如果你习惯做决定，请尝试连续3天对伴侣说“听你的”。如果你习惯依赖，请尝试独自完成一件一直拖延的小事（如办理证件、修理物品）。记录下你产生不适感的瞬间，问自己：“我在害怕什么？”
+            </div>
         </div>
-        <div class="advice-card-item">
-            <div class="advice-title">❤️ 当需要安慰时</div>
-            <div class="advice-content">“我现在不需要建议，我只需要一个拥抱，可以吗？”</div>
+        <div class="plan-week">
+            <div class="week-title">📅 第2周：深度沟通与边界重塑</div>
+            <div class="week-content">
+                找一个安静的夜晚，与伴侣进行一次“非暴力沟通”。使用公式：“当我看到...（事实），我感到...（情绪），因为我看重...（需求），你可以...吗？（请求）”。重点讨论你们在${dims[0]}方面的差异，制定双方都能接受的底线。
+            </div>
+        </div>
+        <div class="plan-week">
+            <div class="week-title">📅 第3周：亲密感修复与升温</div>
+            <div class="week-content">
+                本周专注于情感流动。${s[3]>60 ? '请暂时放下你的理性脑，策划一次纯粹为了快乐而没有实际“意义”的约会。' : '请尝试为伴侣做一件脚踏实地的实事（如做饭、大扫除），用行动表达爱意。'} 每天睡前进行10分钟的无手机交流时间。
+            </div>
+        </div>
+        <div class="plan-week">
+            <div class="week-title">📅 第4周：新模式巩固与复盘</div>
+            <div class="week-content">
+                回顾过去三周的变化。哪些时刻让你感到放松？哪些时刻依然让你紧绷？建立“每周例会”机制，用15分钟时间互换本周的感激事项和改进建议。将这种良性互动固化为长期的生活习惯。
+            </div>
         </div>
     `;
-    document.getElementById('communicationTips').innerHTML = commHtml;
+    document.getElementById('actionPlan').innerHTML = plans;
+
+    // 5. 沟通话术
+    let comms = `
+        <div class="advice-card-item">
+            <div class="advice-title">🔥 场景一：当伴侣指责你${s[0]>50 ? '太强势' : '没主见'}时</div>
+            <div class="advice-content">“我听到了你的不满，我也不想让你感到${s[0]>50 ? '被压迫' : '累'}。其实我这样做是因为${s[0]>50 ? '我很担心事情失控' : '我怕做错决定让你失望'}。我们可以一起定个规则，比如这件事由你/我来主导，好吗？”</div>
+        </div>
+        <div class="advice-card-item">
+            <div class="advice-title">❄️ 场景二：当陷入冷战时</div>
+            <div class="advice-content">“我们现在的沉默让我很难受。我不是想争输赢，我只是想和你重新连接。我们可以先不谈对错，只谈谈现在的感受吗？”</div>
+        </div>
+        <div class="advice-card-item">
+            <div class="advice-title">❤️ 场景三：当需要表达需求时</div>
+            <div class="advice-content">“亲爱的，最近我感到有点${s[1]>50 ? '孤单' : '压力大'}。如果你能${s[1]>50 ? '多陪陪我' : '给我一点独处空间'}，我会感觉好很多，也会更有能量来爱你。”</div>
+        </div>
+    `;
+    document.getElementById('communicationTips').innerHTML = comms;
 
     // 6. 避坑
-    document.getElementById('warningText').innerText = "⚠️ 警惕：你的互补型伴侣（" + (res.k.includes('M')?'D':'M') + "开头类型）虽然对你有致命吸引力，但也最容易触发你的防御机制。差异是用来互补的，而不是用来对抗的。";
+    document.getElementById('warningText').innerText = `⚠️ 终极警示：你的互补型伴侣（${res.k.includes('M')?'D':'M'}开头类型）虽然对你有致命吸引力，但也最容易触发你的防御机制。你们的冲突本质是“${s[0]>50 ? '控制与反控制' : '依赖与反依赖'}”的博弈。请记住，差异是用来互补的，而不是用来对抗的。不要试图把对方变成另一个你。`;
 
     // 绘制图表
     let chartConfig = {
@@ -752,21 +825,18 @@ function showFull() {
         data: {
             labels: dims,
             datasets: [{
-                data: res.s,
+                data: s,
                 backgroundColor: 'rgba(160,127,86,0.2)',
                 borderColor: '#A07F56',
                 pointBackgroundColor: '#A07F56',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#A07F56'
+                pointBorderColor: '#fff'
             }]
         },
         options: {
             maintainAspectRatio: false,
             scale: {
-                ticks: { display: true, beginAtZero: true, max: 100, stepSize: 20, fontSize: 10, fontColor: '#999' },
-                pointLabels: { fontSize: 12, fontColor: '#333' },
-                gridLines: { color: '#eee' }
+                ticks: { display: true, beginAtZero: true, max: 100, stepSize: 20 },
+                pointLabels: { fontSize: 12, fontColor: '#333' }
             },
             legend: { display: false },
             layout: { padding: 10 }
