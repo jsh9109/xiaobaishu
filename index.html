@@ -16,6 +16,7 @@
             --bg-card: #FFFFFF;
             --accent: #D55D30;        /* 强调色：陶土橙 */
             --btn-red: #FF4D4F;       /* 解锁按钮红 */
+            --success: #52c41a;       /* 成功绿 */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
@@ -24,89 +25,89 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #FBF8F2 0%, #FAF0E6 100%);
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px; /* V10.1 减少Body内边距 */
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5; /* V10.1 稍微减小行高 */
         }
 
-        .container { max-width: 800px; margin: 0 auto; padding-bottom: 80px; }
+        .container { max-width: 800px; margin: 0 auto; padding-bottom: 40px; /* V10.1 减少底部留白 */ }
         .hidden { display: none !important; }
 
         .card {
             background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(160, 127, 86, 0.08);
-            margin-bottom: 20px;
+            border-radius: 16px; /* V10.1 稍微减小圆角 */
+            padding: 20px; /* V10.1 减少卡片内边距 */
+            box-shadow: 0 5px 20px rgba(160, 127, 86, 0.06);
+            margin-bottom: 15px; /* V10.1 减少卡片间距 */
             animation: fadeIn 0.5s ease;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* 头部与输入 */
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { color: var(--primary); font-size: 1.8em; margin-bottom: 8px; font-weight: 800; }
-        .header p { color: #666; font-size: 0.95em; margin-bottom: 10px;}
-        .badge { background: #EFEBE5; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; }
+        .header { text-align: center; margin-bottom: 20px; /* V10.1 减少头部间距 */ }
+        .header h1 { color: var(--primary); font-size: 1.6em; margin-bottom: 5px; font-weight: 800; }
+        .header p { color: #666; font-size: 0.9em; margin-bottom: 8px;}
+        .badge { background: #EFEBE5; color: var(--primary); padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: bold; }
 
         .grid-box { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
-            margin: 25px 0; 
+            gap: 10px; /* V10.1 减少网格间距 */
+            margin: 15px 0; /* V10.1 减少上下间距 */
         }
         .grid-item {
             background: #FFFBF5;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 12px; /* V10.1 减少内边距 */
+            border-radius: 10px;
             text-align: center;
             border: 1px solid #F5E8D6;
         }
-        .grid-icon { font-size: 24px; margin-bottom: 5px; display: block; }
-        .grid-text { font-weight: bold; color: var(--primary); font-size: 0.9em; }
+        .grid-icon { font-size: 22px; margin-bottom: 4px; display: block; }
+        .grid-text { font-weight: bold; color: var(--primary); font-size: 0.85em; }
 
         .feature-list {
             background: #F9F9F9;
-            padding: 20px;
-            border-radius: 12px;
-            font-size: 0.95em;
+            padding: 15px; /* V10.1 减少内边距 */
+            border-radius: 10px;
+            font-size: 0.9em;
             color: #555;
-            margin-bottom: 25px;
+            margin-bottom: 20px; /* V10.1 减少间距 */
         }
-        .feature-item { margin-bottom: 8px; display: flex; align-items: center; }
-        .check { color: var(--primary); margin-right: 8px; font-weight: bold; }
+        .feature-item { margin-bottom: 6px; display: flex; align-items: center; }
+        .check { color: var(--primary); margin-right: 6px; font-weight: bold; }
 
         .input-group input {
-            width: 100%; padding: 15px; border: 2px solid #F5E8D6; border-radius: 50px;
-            font-size: 1.1em; text-align: center; -webkit-appearance: none; margin-bottom: 15px;
+            width: 100%; padding: 14px; border: 2px solid #F5E8D6; border-radius: 50px;
+            font-size: 1.1em; text-align: center; -webkit-appearance: none; margin-bottom: 12px; /* V10.1 */
             background: #FFF;
         }
         
         .btn {
-            width: 100%; padding: 16px; border: none; border-radius: 50px;
-            font-size: 1.2em; font-weight: bold; cursor: pointer; display: block;
+            width: 100%; padding: 14px; border: none; border-radius: 50px; /* V10.1 按钮高度微调 */
+            font-size: 1.15em; font-weight: bold; cursor: pointer; display: block;
         }
         .btn-primary { 
             background: linear-gradient(135deg, #A07F56 0%, #856847 100%); 
             color: white; 
-            box-shadow: 0 8px 20px rgba(160, 127, 86, 0.3); 
+            box-shadow: 0 6px 15px rgba(160, 127, 86, 0.25); 
         }
         .btn-secondary { 
-            background: white; color: var(--primary); border: 2px solid var(--primary); margin-top: 15px;
+            background: white; color: var(--primary); border: 2px solid var(--primary); margin-top: 12px; /* V10.1 */
         }
 
         /* 答题页 */
-        .progress-bar { height: 8px; background: #F5E8D6; border-radius: 4px; margin-bottom: 20px; }
-        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; border-radius: 4px; }
-        .question-text { font-size: 1.3em; font-weight: bold; margin-bottom: 30px; line-height: 1.5; color: #333; min-height: 70px; }
+        .progress-bar { height: 6px; background: #F5E8D6; border-radius: 3px; margin-bottom: 15px; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; border-radius: 3px; }
+        .question-text { font-size: 1.2em; font-weight: bold; margin-bottom: 20px; line-height: 1.4; color: #333; min-height: 60px; /* V10.1 紧凑化 */ }
         .option {
-            padding: 18px; background: #FDF8F2; border: 1px solid #F5E8D6;
-            border-radius: 12px; margin-bottom: 12px; cursor: pointer; color: #555; transition: all 0.2s; font-size: 1.05em;
+            padding: 15px; background: #FDF8F2; border: 1px solid #F5E8D6; /* V10.1 减少选项内边距 */
+            border-radius: 10px; margin-bottom: 10px; cursor: pointer; color: #555; transition: all 0.2s; font-size: 1em;
         }
         .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
         
-        .nav-box { display: flex; gap: 15px; margin-top: 30px; }
+        .nav-box { display: flex; gap: 10px; margin-top: 20px; /* V10.1 */ }
         .nav-btn {
-            flex: 1; padding: 15px; border-radius: 12px; border: none; font-size: 1em; font-weight: bold; cursor: pointer;
+            flex: 1; padding: 12px; border-radius: 10px; border: none; font-size: 0.95em; font-weight: bold; cursor: pointer;
         }
         .btn-prev { background: #EEE; color: #666; }
         .btn-next { background: var(--primary); color: white; }
@@ -114,135 +115,140 @@
         /* 结果页 */
         .result-banner {
             background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white; padding: 35px 20px; border-radius: 15px; text-align: center;
+            color: white; padding: 25px 15px; /* V10.1 减少内边距 */
+            border-radius: 12px; text-align: center;
         }
-        .rpi-icon { font-size: 4.5em; margin: 10px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .rpi-name { font-size: 1.8em; font-weight: bold; margin-bottom: 5px;}
+        .rpi-icon { font-size: 4em; margin: 8px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .rpi-name { font-size: 1.6em; font-weight: bold; margin-bottom: 4px;}
         
-        .chart-box { height: 320px; margin: 20px 0; position: relative; } 
+        .chart-box { height: 300px; margin: 15px 0; position: relative; /* V10.1 减少高度和间距 */ } 
 
-        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
-        .score-card { background: #FFFBF5; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); }
-        .score-label { color: var(--primary); font-size: 0.9em; font-weight: bold; }
-        .score-val { font-size: 1.4em; font-weight: bold; color: #333; margin-top: 4px; }
+        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; /* V10.1 */ }
+        .score-card { background: #FFFBF5; padding: 10px 15px; border-radius: 8px; border-left: 3px solid var(--primary); /* V10.1 紧凑内边距 */ }
+        .score-label { color: var(--primary); font-size: 0.85em; font-weight: bold; }
+        .score-val { font-size: 1.3em; font-weight: bold; color: #333; margin-top: 2px; }
 
         /* 免费内容增强 */
-        .free-section { margin: 25px 0; }
-        .section-title { font-size: 1.1em; font-weight: bold; color: #333; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
+        .free-section { margin: 20px 0; /* V10.1 减少板块间距 */ }
+        .section-title { font-size: 1.1em; font-weight: bold; color: #333; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 10px; /* V10.1 */ }
         
-        .long-text-analysis {
-            font-size: 0.95em; color: #444; line-height: 1.8; 
-            background: #FAFAFA; padding: 20px; border-radius: 12px; 
-            text-align: justify; margin-bottom: 15px; border: 1px solid #EEE;
+        .long-text-analysis, .text-block {
+            font-size: 0.9em; color: #444; line-height: 1.7; 
+            background: #FAFAFA; padding: 15px; border-radius: 10px; 
+            text-align: justify; margin-bottom: 10px; border: 1px solid #EEE; /* V10.1 */
         }
 
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
-        .tag { background: #EFEBE5; color: #5D4037; padding: 6px 14px; border-radius: 6px; font-size: 0.9em; font-weight: bold; }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .tag { background: #EFEBE5; color: #5D4037; padding: 5px 12px; border-radius: 6px; font-size: 0.85em; font-weight: bold; }
 
         /* 16型总览样式 */
         .all-types-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; /* V10.1 */
         }
         .type-item {
             background: #FFF; border: 1px solid #EFEBE5; border-radius: 6px;
-            padding: 8px 2px; text-align: center; font-size: 0.75em;
+            padding: 6px 2px; text-align: center; font-size: 0.7em;
             position: relative; color: #666; transition: all 0.3s;
         }
         .type-item.active {
             border-color: var(--primary); color: var(--primary); background: #FFFBF5;
-            font-weight: bold; box-shadow: 0 2px 8px rgba(160, 127, 86, 0.15);
-            transform: scale(1.05); z-index: 2;
+            font-weight: bold; box-shadow: 0 2px 6px rgba(160, 127, 86, 0.15);
+            transform: scale(1.03); z-index: 2;
         }
         .type-star {
-            position: absolute; top: -5px; right: -5px; font-size: 1.2em;
-            color: #FFD700; text-shadow: 0 1px 2px rgba(0,0,0,0.2); z-index: 3;
+            position: absolute; top: -4px; right: -4px; font-size: 1em;
+            color: #FFD700; text-shadow: 0 1px 1px rgba(0,0,0,0.1); z-index: 3;
         }
-        .type-icon-sm { font-size: 1.6em; display: block; margin-bottom: 5px; }
+        .type-icon-sm { font-size: 1.4em; display: block; margin-bottom: 3px; }
 
-        /* 解锁遮罩 (极简白风格) */
+        /* 解锁遮罩 */
         .locked-section {
-            position: relative; margin-top: 30px; border-radius: 15px;
+            position: relative; margin-top: 25px; border-radius: 12px; /* V10.1 */
             overflow: hidden; border: 1px solid #eee; background: #fff;
         }
         .blur-content {
-            filter: blur(8px); user-select: none; padding: 20px;
-            background: #fff; opacity: 0.5; font-size: 0.9em; line-height: 1.8;
+            filter: blur(6px); user-select: none; padding: 15px; /* V10.1 */
+            background: #fff; opacity: 0.5; font-size: 0.9em; line-height: 1.6;
         }
         .lock-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: rgba(255, 255, 255, 0.4); z-index: 10;
+            background: rgba(255, 255, 255, 0.5); z-index: 10;
         }
-        .lock-icon { font-size: 3em; margin-bottom: 10px; }
-        .lock-text { font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 20px; }
+        .lock-icon { font-size: 2.5em; margin-bottom: 8px; /* V10.1 */ }
+        .lock-text { font-size: 1em; font-weight: bold; color: #333; margin-bottom: 15px; /* V10.1 */ }
         .unlock-btn-red {
             background: linear-gradient(135deg, #FF4D4F 0%, #D32F2F 100%);
-            color: white; padding: 14px 35px; border-radius: 50px;
-            font-size: 1.1em; font-weight: bold; border: none;
-            cursor: pointer; box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+            color: white; padding: 12px 30px; border-radius: 50px; /* V10.1 */
+            font-size: 1.05em; font-weight: bold; border: none;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
             animation: pulse-red 2s infinite;
         }
         @keyframes pulse-red { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
         /* 解锁区 */
         .unlock-box {
-            background: #FFF; border-top: 1px solid #eee; padding: 25px 20px;
-            border-radius: 0 0 15px 15px; text-align: center; margin-top: -10px;
+            background: #FFF; border-top: 1px solid #eee; padding: 20px 15px; /* V10.1 */
+            border-radius: 0 0 12px 12px; text-align: center; margin-top: -10px;
         }
-        .price { color: var(--accent); font-size: 2.8em; font-weight: bold; margin: 10px 0; line-height: 1; }
-        .price s { color: #999; font-size: 0.4em; font-weight: normal; margin-left: 5px; }
+        .price { color: var(--accent); font-size: 2.4em; font-weight: bold; margin: 8px 0; line-height: 1; /* V10.1 */ }
+        .price s { color: #999; font-size: 0.45em; font-weight: normal; margin-left: 5px; }
         
         .pay-btn {
-            display: flex; align-items: center; justify-content: center; width: 100%; padding: 14px;
-            border-radius: 50px; font-weight: bold; color: white; margin-bottom: 12px; text-decoration: none; font-size: 1.1em;
+            display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px; /* V10.1 */
+            border-radius: 50px; font-weight: bold; color: white; margin-bottom: 10px; text-decoration: none; font-size: 1em;
         }
-        .pay-ali { background: #00A3EE; box-shadow: 0 4px 10px rgba(0, 163, 238, 0.3); }
-        .pay-wx { background: #07C160; box-shadow: 0 4px 10px rgba(7, 193, 96, 0.3); }
+        .pay-ali { background: #00A3EE; box-shadow: 0 3px 8px rgba(0, 163, 238, 0.3); }
+        .pay-wx { background: #07C160; box-shadow: 0 3px 8px rgba(7, 193, 96, 0.3); }
         
         .upload-btn-lg {
             background: linear-gradient(135deg, #FF5722 0%, #D84315 100%);
-            color: white; width: 100%; padding: 18px; border-radius: 50px;
-            font-size: 1.2em; font-weight: bold; display: flex; align-items: center; justify-content: center;
-            margin-top: 25px; cursor: pointer; box-shadow: 0 8px 25px rgba(216, 67, 21, 0.4);
+            color: white; width: 100%; padding: 15px; border-radius: 50px; /* V10.1 */
+            font-size: 1.1em; font-weight: bold; display: flex; align-items: center; justify-content: center;
+            margin-top: 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(216, 67, 21, 0.3);
             animation: pulse 2s infinite;
         }
 
-        /* 支付后引导黄框 */
-        .after-pay-guide {
+        /* 支付后引导 - 样式优化 */
+        .pay-guide {
             background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px;
-            padding: 15px; margin-top: 20px; text-align: left; color: #E65100; font-size: 0.9em;
+            padding: 12px 15px; margin-top: 15px; text-align: left; color: #E65100; font-size: 0.85em; /* V10.1 */
             line-height: 1.6;
         }
-        .guide-title { font-weight: bold; font-size: 1em; margin-bottom: 5px; display: flex; align-items: center; }
-        .guide-title::before { content: '❓'; margin-right: 5px; }
+        .pay-guide strong { color: #BF360C; }
 
         /* 招募学徒 */
-        .recruit-box { background: #FFFBF5; border: 1px dashed var(--primary); padding: 15px; text-align: center; border-radius: 10px; margin-top: 40px; }
-        .copy-btn-sm { background: var(--accent); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-left: 5px; font-size: 0.85em; }
+        .recruit-box { background: #FFFBF5; border: 1px dashed var(--primary); padding: 12px; text-align: center; border-radius: 10px; margin-top: 25px; /* V10.1 */ }
+        .copy-btn-sm { background: var(--accent); color: white; border: none; padding: 3px 8px; border-radius: 4px; cursor: pointer; margin-left: 5px; font-size: 0.8em; }
 
-        .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 0.9em; }
-        .admin-stat { background: #F5F5F5; padding: 10px; text-align: center; border-radius: 8px; margin-bottom: 15px; }
+        .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; font-size: 0.85em; /* V10.1 */ }
+        .admin-stat { background: #F5F5F5; padding: 8px; text-align: center; border-radius: 6px; margin-bottom: 12px; font-size: 0.9em; }
         #wx-guide { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; text-align: center; color: #fff; display: none; padding-top: 20px; }
 
         /* 付费报告样式 */
-        .report-section { margin-bottom: 25px; }
-        .report-title { font-size: 1.2em; font-weight: bold; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; }
-        .report-title::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-right: 8px; }
-        .report-content { background: #FAFAFA; padding: 20px; border-radius: 12px; color: #444; line-height: 1.8; text-align: justify; border: 1px solid #EEE; }
-        .report-list { padding-left: 20px; margin: 0; color: #555; }
-        .report-list li { margin-bottom: 10px; }
-        .warning-box { background: #FFF5F5; border: 1px solid #FFCDD2; color: #D32F2F; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; }
-        .warning-box::before { content: '⚠️'; margin-right: 10px; font-size: 1.2em; }
+        .report-section { margin-bottom: 20px; /* V10.1 */ }
+        .report-title { font-size: 1.1em; font-weight: bold; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; padding-bottom: 8px; /* V10.1 */ }
+        .report-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; margin-right: 8px; }
+        .report-content { background: #FAFAFA; padding: 15px; border-radius: 10px; color: #444; line-height: 1.7; text-align: justify; border: 1px solid #EEE; font-size: 0.95em; /* V10.1 */ }
+        .report-list { padding-left: 18px; margin: 0; color: #555; }
+        .report-list li { margin-bottom: 6px; /* V10.1 */ }
+        .warning-box { background: #FFF5F5; border: 1px solid #FFCDD2; color: #D32F2F; padding: 12px; border-radius: 10px; display: flex; align-items: flex-start; font-size: 0.9em; /* V10.1 */ }
+        .warning-box::before { content: '⚠️'; margin-right: 8px; font-size: 1.1em; }
         
-        .dim-detail-box { margin-bottom: 15px; }
-        .dim-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; color: #555; font-size: 0.9em; }
-        .dim-bar-bg { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+        .dim-detail-box { margin-bottom: 12px; /* V10.1 */ }
+        .dim-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px; color: #555; font-size: 0.85em; }
+        .dim-bar-bg { height: 5px; background: #eee; border-radius: 3px; overflow: hidden; }
         .dim-bar-val { height: 100%; background: var(--primary); border-radius: 3px; }
-        .dim-desc { font-size: 0.85em; color: #666; margin-top: 5px; line-height: 1.5; text-align: justify; }
-        .psych-box { background: #FDF8F2; padding: 15px; border-radius: 8px; color: #5D4037; font-size: 0.95em; line-height: 1.8; text-align: justify; border-left: 4px solid var(--primary); }
-        .advice-card-item { background: #FAFAFA; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
-        .advice-title { font-weight: bold; color: #333; margin-bottom: 5px; }
-        .advice-content { font-size: 0.9em; color: #666; }
+        .dim-desc { font-size: 0.85em; color: #666; margin-top: 4px; line-height: 1.4; text-align: justify; }
+        .psych-box { background: #FDF8F2; padding: 12px; border-radius: 8px; color: #5D4037; font-size: 0.9em; line-height: 1.7; text-align: justify; border-left: 3px solid var(--primary); /* V10.1 */ }
+        .advice-card-item { background: #FAFAFA; padding: 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #eee; /* V10.1 */ }
+        .advice-title { font-weight: bold; color: #333; margin-bottom: 4px; font-size: 0.95em; }
+        .advice-content { font-size: 0.9em; color: #666; line-height: 1.5; }
+        
+        /* V10.1 新增提示框样式 */
+        .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9em; display: flex; align-items: center; }
+        .alert-success { background: #F6FFED; border: 1px solid #B7EB8F; color: #389E0D; }
+        .alert-icon { margin-right: 8px; font-size: 1.2em; }
     </style>
 </head>
 <body>
@@ -294,11 +300,11 @@
             <input type="text" id="cardInput" placeholder="请输入测评卡号 (不区分大小写)">
         </div>
         <button class="btn btn-primary" onclick="verifyCard()">开始测评</button>
-        <div style="text-align:center; margin-top:25px; font-size:0.85em; color:#999; cursor:pointer;" onclick="showAdmin()">管理员入口 →</div>
+        <div style="text-align:center; margin-top:20px; font-size:0.85em; color:#999; cursor:pointer;" onclick="showAdmin()">管理员入口 →</div>
     </div>
 
     <div id="testPage" class="card hidden">
-        <div style="display:flex; justify-content:space-between; font-size:0.9em; color:#999; margin-bottom:5px;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85em; color:#999; margin-bottom:5px;">
             <span id="progressText">进度 1/40</span>
             <span>单选</span>
         </div>
@@ -313,7 +319,7 @@
 
     <div id="freePage" class="card hidden">
         <div class="result-banner">
-            <div style="opacity:0.9; font-size:0.9em; margin-bottom:5px;">你的基础倾向原型</div>
+            <div style="opacity:0.9; font-size:0.85em; margin-bottom:4px;">你的基础倾向原型</div>
             <div class="rpi-icon" id="resIcon">👑</div>
             <div class="rpi-name" id="resName">分析中...</div>
         </div>
@@ -365,18 +371,18 @@
             <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="pay-btn pay-ali">⚡ 支付宝快捷支付</a>
             <a href="javascript:void(0);" onclick="alert('请使用下方扫码或转账')" class="pay-btn pay-wx">⚡ 微信快捷支付</a>
             
-            <div style="margin:20px 0; color:#999; font-size:0.9em;">- 或扫码/转账 -</div>
-            <div style="display:flex; justify-content:center; gap:15px; margin-bottom:20px;">
-                <img src="wechat_qrcode.jpg" style="width:110px; border-radius:8px; border:1px solid #eee;">
-                <img src="alipay_qrcode.png" style="width:110px; border-radius:8px; border:1px solid #eee;">
+            <div style="margin:15px 0; color:#999; font-size:0.85em;">- 或扫码/转账 -</div>
+            <div style="display:flex; justify-content:center; gap:12px; margin-bottom:15px;">
+                <img src="wechat_qrcode.jpg" style="width:100px; border-radius:8px; border:1px solid #eee;">
+                <img src="alipay_qrcode.png" style="width:100px; border-radius:8px; border:1px solid #eee;">
             </div>
             
-            <div style="background:white; padding:15px; border-radius:10px; text-align:left; font-size:0.9em; border:1px solid #eee;">
-                <div class="copy-row" style="border:none; margin:0; padding:5px 0;">
+            <div style="background:white; padding:12px; border-radius:10px; text-align:left; font-size:0.85em; border:1px solid #eee;">
+                <div class="copy-row" style="border:none; margin:0; padding:4px 0;">
                     <span>微信: <strong style="user-select:all;">jsh9109</strong></span> 
                     <span style="color:#A07F56; cursor:pointer; font-weight:bold;" onclick="copyTxt('jsh9109')">复制</span>
                 </div>
-                <div class="copy-row" style="border:none; margin:0; padding:5px 0;">
+                <div class="copy-row" style="border:none; margin:0; padding:4px 0;">
                     <span>支付宝: <strong style="user-select:all;">313360631@qq.com</strong></span> 
                     <span style="color:#A07F56; cursor:pointer; font-weight:bold;" onclick="copyTxt('313360631@qq.com')">复制</span>
                 </div>
@@ -385,27 +391,32 @@
             <label for="upload" class="upload-btn-lg">📸 上传截图，立即查看报告</label>
             <input type="file" id="upload" accept="image/*" style="display:none;" onchange="handleUpload(event)">
 
-            <div class="after-pay-guide">
-                <div class="guide-title">付款后如何获取报告？</div>
+            <div class="pay-guide">
+                <div style="font-weight:bold; margin-bottom:5px;">💡 付款后如何获取报告？</div>
                 1. 截图保存您的支付凭证<br>
-                2. 点击上方红色“上传付款截图”按钮<br>
+                2. 点击上方红色“<strong>上传截图</strong>”按钮<br>
                 3. 系统核验后自动跳转显示完整报告
             </div>
         </div>
 
         <div class="recruit-box">
             <div style="font-weight:bold; color:#A07F56;">📢 招心理测试项目学徒</div>
-            <div style="font-size:0.85em; color:#666; margin:8px 0;">项目实操 · 流量变现 · 长期带教</div>
-            <div style="background:white; padding:8px 15px; display:inline-block; border-radius:20px; font-size:0.95em; border:1px solid #E2C08D;">
+            <div style="font-size:0.8em; color:#666; margin:6px 0;">项目实操 · 流量变现 · 长期带教</div>
+            <div style="background:white; padding:6px 12px; display:inline-block; border-radius:20px; font-size:0.9em; border:1px solid #E2C08D;">
                 HCH91178 <button class="copy-btn-sm" onclick="copyWx()">复制</button>
             </div>
         </div>
     </div>
 
     <div id="fullPage" class="card hidden">
-        <div class="result-banner" style="margin-bottom:25px;">
+        <div class="alert alert-success">
+            <span class="alert-icon">✅</span>
+            <span><strong>解锁成功！</strong> 以下是您的完整深度评估报告。</span>
+        </div>
+
+        <div class="result-banner" style="margin-bottom:20px;">
             <h2>📝 深度评估报告</h2>
-            <div style="font-size:0.9em; opacity:0.9;">你的关系角色全解析</div>
+            <div style="font-size:0.85em; opacity:0.9;">你的关系角色全解析</div>
         </div>
 
         <div class="chart-box">
@@ -446,7 +457,7 @@
 
         <div class="recruit-box">
             <div style="font-weight:bold; color:#A07F56;">📢 招心理测试项目学徒</div>
-            <div style="background:white; padding:8px 15px; display:inline-block; border-radius:20px; margin-top:10px; border:1px solid #E2C08D;">
+            <div style="background:white; padding:6px 12px; display:inline-block; border-radius:20px; margin-top:8px; border:1px solid #E2C08D;">
                 HCH91178 <button class="copy-btn-sm" onclick="copyWx()">复制</button>
             </div>
         </div>
@@ -460,16 +471,16 @@
         </div>
         <div id="adminMain" class="hidden">
             <div class="admin-stat">可用卡密：<span id="validNum" style="font-weight:bold; color:green;">0</span></div>
-            <div style="margin:20px 0; display:flex; gap:10px;">
-                <input type="number" id="genCount" value="10" style="width:80px; padding:10px; border:1px solid #ddd; border-radius:5px;">
-                <button class="copy-btn-sm" onclick="genCards()" style="padding:10px 20px;">生成(NS开头)</button>
+            <div style="margin:15px 0; display:flex; gap:8px;">
+                <input type="number" id="genCount" value="10" style="width:70px; padding:8px; border:1px solid #ddd; border-radius:5px;">
+                <button class="copy-btn-sm" onclick="genCards()" style="padding:8px 15px; font-size:0.9em;">生成(NS开头)</button>
             </div>
-            <div class="card-list" id="cardList" style="max-height:200px; overflow-y:auto; border:1px solid #eee; padding:10px; margin-bottom:15px;"></div>
-            <div style="display:flex; gap:10px;">
-                <button class="copy-btn-sm" style="background:#2E7D32; padding:10px; flex:1;" onclick="exportNew()">导出本次</button>
-                <button class="copy-btn-sm" style="background:#00b894; padding:10px; flex:1;" onclick="exportAll()">导出全部</button>
+            <div class="card-list" id="cardList" style="max-height:200px; overflow-y:auto; border:1px solid #eee; padding:10px; margin-bottom:15px; font-size:0.9em;"></div>
+            <div style="display:flex; gap:8px;">
+                <button class="copy-btn-sm" style="background:#2E7D32; padding:8px; flex:1; font-size:0.9em;" onclick="exportNew()">导出本次</button>
+                <button class="copy-btn-sm" style="background:#00b894; padding:8px; flex:1; font-size:0.9em;" onclick="exportAll()">导出全部</button>
             </div>
-            <button class="btn btn-secondary" onclick="location.reload()" style="margin-top:25px;">退出</button>
+            <button class="btn btn-secondary" onclick="location.reload()" style="margin-top:20px;">退出</button>
         </div>
     </div>
 
@@ -565,7 +576,6 @@ function renderQ() {
     document.getElementById('qText').innerText = `${state.idx+1}. ${q.t}`;
     document.getElementById('progressFill').style.width = ((state.idx+1)/40*100)+'%';
     document.getElementById('progressText').innerText = `进度 ${state.idx+1}/40`;
-    
     document.getElementById('prevBtn').style.display = state.idx > 0 ? 'block' : 'none';
     
     let h = '';
@@ -584,14 +594,8 @@ function sel(n) {
     }, 200);
 }
 
-function prevQuestion() {
-    if(state.idx > 0) { state.idx--; renderQ(); }
-}
-function nextQuestion() {
-    if(!state.ans[state.idx]) return alert('请选择');
-    if(state.idx<39) { state.idx++; renderQ(); }
-    else calc();
-}
+function prevQuestion() { if(state.idx > 0) { state.idx--; renderQ(); } }
+function nextQuestion() { if(!state.ans[state.idx]) return alert('请选择'); if(state.idx<39) { state.idx++; renderQ(); } else calc(); }
 
 function calc() {
     let d = [0,0,0,0];
@@ -634,13 +638,7 @@ function showFree() {
     for (let key in types) {
         let type = types[key];
         let isActive = (key === userKey);
-        allTypesHtml += `
-            <div class="type-item ${isActive ? 'active' : ''}">
-                ${isActive ? '<span class="type-star">⭐️</span>' : ''}
-                <span class="type-icon-sm">${type.i}</span>
-                <div>${type.n}</div>
-            </div>
-        `;
+        allTypesHtml += `<div class="type-item ${isActive ? 'active' : ''}">${isActive ? '<span class="type-star">⭐️</span>' : ''}<span class="type-icon-sm">${type.i}</span><div>${type.n}</div></div>`;
     }
     document.getElementById('allTypesGrid').innerHTML = allTypesHtml;
     
@@ -677,10 +675,10 @@ function showFree() {
 
 function handleUpload(e) {
     if(e.target.files[0]) {
-        document.querySelector('.upload-btn-lg').innerText = '⏳ 正在生成深度报告...';
+        document.querySelector('.upload-btn-lg').innerText = '⏳ 正在分析数据...';
         fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
             method:'POST', headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({title:'💰新订单-年上年下-2.99', desp:'有新截图'})
+            body:JSON.stringify({title:'💰新订单-年上年下-V10.1', desp:'有新截图'})
         }).catch(()=>{});
         
         setTimeout(showFull, 1500);
@@ -766,8 +764,9 @@ function showFull() {
         options: {
             maintainAspectRatio: false,
             scale: {
-                ticks: { display: true, beginAtZero: true, max: 100, stepSize: 20 },
-                pointLabels: { fontSize: 12, fontColor: '#333' }
+                ticks: { display: true, beginAtZero: true, max: 100, stepSize: 20, fontSize: 10, fontColor: '#999' },
+                pointLabels: { fontSize: 12, fontColor: '#333' },
+                gridLines: { color: '#eee' }
             },
             legend: { display: false },
             layout: { padding: 10 }
