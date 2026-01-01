@@ -8,169 +8,248 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     
-    <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?d9fa7aa184ccd246a69cf978ab0acc9d";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-    
     <style>
         /* ================= 视觉系统：焦糖奶油风 ================= */
         :root {
             --primary: #A07F56;       /* 主色：焦糖 */
-            --primary-dark: #856847;
             --bg-body: #FBF8F2;       /* 背景：奶油 */
             --bg-card: #FFFFFF;
-            --text-main: #333333;
             --accent: #D55D30;        /* 强调色：陶土橙 */
+            --btn-red: #FF4D4F;       /* 解锁按钮红 */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #FBF8F2 0%, #FAF0E6 100%);
             min-height: 100vh;
             padding: 15px;
-            color: var(--text-main);
+            color: #333;
             line-height: 1.6;
         }
 
-        .container { max-width: 800px; margin: 0 auto; padding-bottom: 50px; }
+        .container { max-width: 800px; margin: 0 auto; padding-bottom: 80px; }
         .hidden { display: none !important; }
 
         .card {
             background: white;
             border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 15px 40px rgba(160, 127, 86, 0.1);
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(160, 127, 86, 0.08);
             margin-bottom: 20px;
             animation: fadeIn 0.5s ease;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* 头部与输入 */
         .header { text-align: center; margin-bottom: 30px; }
-        .header h1 {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            color: #A07F56;
-            font-size: 1.8em; margin-bottom: 10px; font-weight: bold;
-        }
-        .header p { color: #666; font-size: 1em; margin-bottom: 10px; }
-        .badge { display: inline-block; background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; }
+        .header h1 { color: var(--primary); font-size: 1.8em; margin-bottom: 8px; font-weight: 800; }
+        .header p { color: #666; font-size: 0.95em; margin-bottom: 10px;}
+        .badge { background: #EFEBE5; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; }
 
-        .input-group { margin: 25px 0; }
+        .grid-box { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            margin: 25px 0; 
+        }
+        .grid-item {
+            background: #FFFBF5;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #F5E8D6;
+        }
+        .grid-icon { font-size: 24px; margin-bottom: 5px; display: block; }
+        .grid-text { font-weight: bold; color: var(--primary); font-size: 0.9em; }
+
+        .feature-list {
+            background: #F9F9F9;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .feature-item { margin-bottom: 8px; display: flex; align-items: center; }
+        .check { color: var(--primary); margin-right: 8px; font-weight: bold; }
+
         .input-group input {
-            width: 100%; padding: 16px; border: 2px solid #F5E8D6; border-radius: 12px;
-            font-size: 1.1em; text-align: center; transition: all 0.3s; -webkit-appearance: none;
+            width: 100%; padding: 15px; border: 2px solid #F5E8D6; border-radius: 50px;
+            font-size: 1.1em; text-align: center; -webkit-appearance: none; margin-bottom: 15px;
+            background: #FFF;
         }
-        .input-group input:focus { border-color: var(--primary); }
-
+        
         .btn {
             width: 100%; padding: 16px; border: none; border-radius: 50px;
-            font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s;
-            margin-top: 15px; -webkit-appearance: none;
+            font-size: 1.2em; font-weight: bold; cursor: pointer; display: block;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white; box-shadow: 0 8px 25px rgba(160, 127, 86, 0.3);
+        .btn-primary { 
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%); 
+            color: white; 
+            box-shadow: 0 8px 20px rgba(160, 127, 86, 0.3); 
         }
-        .btn-primary:active { transform: scale(0.98); }
-        .btn-secondary {
-            background: white; color: var(--primary); border: 2px solid var(--primary);
+        .btn-secondary { 
+            background: white; color: var(--primary); border: 2px solid var(--primary); margin-top: 15px;
         }
-
-        /* 维度宫格 */
-        .dimensions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 30px 0; }
-        .dimension-card {
-            background: #FFFBF5; border: 1px solid #F0E6D8; border-radius: 12px; padding: 15px; text-align: center;
-        }
-        .dimension-icon { font-size: 2.2em; margin-bottom: 5px; display: block; }
-        .dimension-name { color: var(--primary); font-weight: bold; font-size: 1em; }
-        .dimension-desc { font-size: 0.75em; color: #999; }
-
-        .features-list { background: #FDF8F2; padding: 20px; border-radius: 15px; margin: 25px 0; border: 1px solid #F5E8D6; }
-        .features-list li { list-style: none; margin-bottom: 8px; color: #555; font-size: 0.95em; }
-        .features-list li:before { content: "✓ "; color: var(--primary); font-weight: bold; margin-right: 5px; }
 
         /* 答题页 */
-        .progress-bar { height: 8px; background: #F5E8D6; border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
-        .question-text { font-size: 1.2em; font-weight: bold; color: #333; margin-bottom: 25px; line-height: 1.5; }
+        .progress-bar { height: 8px; background: #F5E8D6; border-radius: 4px; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; border-radius: 4px; }
+        .question-text { font-size: 1.3em; font-weight: bold; margin-bottom: 30px; line-height: 1.5; color: #333; min-height: 70px; }
         .option {
-            padding: 15px; background: #FFF; border: 1px solid #F5E8D6;
-            border-radius: 12px; margin-bottom: 10px; cursor: pointer; color: #555; font-weight: 500;
+            padding: 18px; background: #FDF8F2; border: 1px solid #F5E8D6;
+            border-radius: 12px; margin-bottom: 12px; cursor: pointer; color: #555; transition: all 0.2s; font-size: 1.05em;
         }
         .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
-        .nav-buttons { display: flex; gap: 15px; margin-top: 30px; }
+        
+        .nav-box { display: flex; gap: 15px; margin-top: 30px; }
+        .nav-btn {
+            flex: 1; padding: 15px; border-radius: 12px; border: none; font-size: 1em; font-weight: bold; cursor: pointer;
+        }
+        .btn-prev { background: #EEE; color: #666; }
+        .btn-next { background: var(--primary); color: white; }
 
         /* 结果页 */
         .result-banner {
             background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;
+            color: white; padding: 35px 20px; border-radius: 15px; text-align: center;
         }
-        .rpi-score { font-size: 3.5em; margin: 10px 0; }
-        .rpi-level { font-size: 1.4em; font-weight: bold; background: rgba(255,255,255,0.2); padding: 5px 20px; border-radius: 30px; display: inline-block; }
+        .rpi-icon { font-size: 4.5em; margin: 10px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .rpi-name { font-size: 1.8em; font-weight: bold; margin-bottom: 5px;}
         
-        .scores-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 25px 0; }
-        .score-item { background: #FFFBF5; padding: 12px; border-radius: 8px; border-left: 3px solid var(--primary); }
-        .score-item-name { color: var(--primary); font-weight: bold; font-size: 0.9em; }
-        .score-item-value { font-weight: bold; font-size: 1.1em; color: #333; }
+        .chart-box { height: 320px; margin: 20px 0; position: relative; } 
 
-        .type-card { border: 2px solid var(--primary); background: #FFFBF5; padding: 20px; border-radius: 12px; margin: 25px 0; }
-        .type-card h3 { color: var(--primary); margin-bottom: 10px; }
+        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
+        .score-card { background: #FFFBF5; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .score-label { color: var(--primary); font-size: 0.9em; font-weight: bold; }
+        .score-val { font-size: 1.4em; font-weight: bold; color: #333; margin-top: 4px; }
 
-        .unlock-section {
-            background: linear-gradient(135deg, #FFF8F0 0%, #FFE4C4 100%);
-            padding: 25px; border-radius: 15px; margin: 30px 0; border: 2px solid var(--accent);
-            text-align: center;
-        }
-        .price-tag { margin: 20px 0; }
-        .current-price { color: var(--accent); font-size: 2.8em; font-weight: bold; }
-        .original-price { text-decoration: line-through; color: #999; }
-
-        /* 支付按钮 */
-        .quick-pay-btn {
-            width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: none;
-            color: white; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; text-decoration: none;
-        }
-        .btn-ali { background: #00A0E9; }
-        .btn-wx { background: #07C160; }
+        /* 免费内容增强 */
+        .free-section { margin: 25px 0; }
+        .section-title { font-size: 1.1em; font-weight: bold; color: #333; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
         
-        .copy-box { background: #fff; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: left; }
-        .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .btn-copy { background: var(--primary); color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 12px; }
-
-        .upload-btn {
-            background: var(--accent); color: white; width: 100%; padding: 15px; border-radius: 10px;
-            font-size: 1.1em; font-weight: bold; display: flex; align-items: center; justify-content: center;
-            margin-top: 15px; cursor: pointer;
+        .long-text-analysis {
+            font-size: 0.95em; color: #444; line-height: 1.8; 
+            background: #FAFAFA; padding: 20px; border-radius: 12px; 
+            text-align: justify; margin-bottom: 15px; border: 1px solid #EEE;
         }
+
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
+        .tag { background: #EFEBE5; color: #5D4037; padding: 6px 14px; border-radius: 6px; font-size: 0.9em; font-weight: bold; }
+
+        /* 16型总览样式 */
+        .all-types-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px;
+        }
+        .type-item {
+            background: #FFF; border: 1px solid #EFEBE5; border-radius: 6px;
+            padding: 8px 2px; text-align: center; font-size: 0.75em;
+            position: relative; color: #666; transition: all 0.3s;
+        }
+        .type-item.active {
+            border-color: var(--primary); color: var(--primary); background: #FFFBF5;
+            font-weight: bold; box-shadow: 0 2px 8px rgba(160, 127, 86, 0.15);
+            transform: scale(1.05); z-index: 2;
+        }
+        .type-star {
+            position: absolute; top: -5px; right: -5px; font-size: 1.2em;
+            color: #FFD700; text-shadow: 0 1px 2px rgba(0,0,0,0.2); z-index: 3;
+        }
+        .type-icon-sm { font-size: 1.6em; display: block; margin-bottom: 5px; }
+
+        /* 解锁遮罩 (极简白风格) */
+        .locked-section {
+            position: relative; margin-top: 30px; border-radius: 15px;
+            overflow: hidden; border: 1px solid #eee; background: #fff;
+        }
+        .blur-content {
+            filter: blur(8px); user-select: none; padding: 20px;
+            background: #fff; opacity: 0.5; font-size: 0.9em; line-height: 1.8;
+        }
+        .lock-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.4); z-index: 10;
+        }
+        .lock-icon { font-size: 3em; margin-bottom: 10px; }
+        .lock-text { font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 20px; }
+        .unlock-btn-red {
+            background: linear-gradient(135deg, #FF4D4F 0%, #D32F2F 100%);
+            color: white; padding: 14px 35px; border-radius: 50px;
+            font-size: 1.1em; font-weight: bold; border: none;
+            cursor: pointer; box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+
+        /* 解锁区 */
+        .unlock-box {
+            background: #FFF; border-top: 1px solid #eee; padding: 25px 20px;
+            border-radius: 0 0 15px 15px; text-align: center; margin-top: -10px;
+        }
+        .price { color: var(--accent); font-size: 2.8em; font-weight: bold; margin: 10px 0; line-height: 1; }
+        .price s { color: #999; font-size: 0.4em; font-weight: normal; margin-left: 5px; }
+        
+        .pay-btn {
+            display: flex; align-items: center; justify-content: center; width: 100%; padding: 14px;
+            border-radius: 50px; font-weight: bold; color: white; margin-bottom: 12px; text-decoration: none; font-size: 1.1em;
+        }
+        .pay-ali { background: #00A3EE; box-shadow: 0 4px 10px rgba(0, 163, 238, 0.3); }
+        .pay-wx { background: #07C160; box-shadow: 0 4px 10px rgba(7, 193, 96, 0.3); }
+        
+        .upload-btn-lg {
+            background: linear-gradient(135deg, #FF5722 0%, #D84315 100%);
+            color: white; width: 100%; padding: 18px; border-radius: 50px;
+            font-size: 1.2em; font-weight: bold; display: flex; align-items: center; justify-content: center;
+            margin-top: 25px; cursor: pointer; box-shadow: 0 8px 25px rgba(216, 67, 21, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        /* 支付后引导黄框 */
+        .after-pay-guide {
+            background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px;
+            padding: 15px; margin-top: 20px; text-align: left; color: #E65100; font-size: 0.9em;
+            line-height: 1.6;
+        }
+        .guide-title { font-weight: bold; font-size: 1em; margin-bottom: 5px; display: flex; align-items: center; }
+        .guide-title::before { content: '❓'; margin-right: 5px; }
 
         /* 招募学徒 */
-        .recruit-card { background: #FFFBF5; border: 1px dashed var(--primary); border-radius: 12px; padding: 15px; text-align: center; margin-top: 30px; }
-        .recruit-copy-box { display: flex; align-items: center; justify-content: center; gap: 10px; background: white; padding: 8px 15px; border-radius: 20px; width: fit-content; margin: 10px auto 0 auto; border: 1px solid #E2C08D; }
-        .btn-copy-orange { background: var(--accent); color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; cursor: pointer; }
+        .recruit-box { background: #FFFBF5; border: 1px dashed var(--primary); padding: 15px; text-align: center; border-radius: 10px; margin-top: 40px; }
+        .copy-btn-sm { background: var(--accent); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-left: 5px; font-size: 0.85em; }
 
-        /* 后台 */
-        .admin-stat { background: #FFFBF5; border: 1px solid #E2C08D; padding:10px; border-radius:8px; margin-bottom:10px; text-align:center; }
-        .admin-btn { width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:8px; margin-top:10px; cursor:pointer; }
-        .card-list { max-height:200px; overflow-y:auto; background:#F9F9F9; padding:10px; border-radius:8px; font-family:monospace; margin-top:10px; font-size:12px; border:1px solid #eee; }
-
-        /* 微信引导 */
+        .copy-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; font-size: 0.9em; }
+        .admin-stat { background: #F5F5F5; padding: 10px; text-align: center; border-radius: 8px; margin-bottom: 15px; }
         #wx-guide { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; text-align: center; color: #fff; display: none; padding-top: 20px; }
-        .guide-arrow { position: absolute; top: 10px; right: 20px; width: 60px; height: 60px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 50 Q 50 20 80 10 M 80 10 L 70 30 M 80 10 L 60 10' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E"); background-repeat: no-repeat; transform: rotate(-20deg); }
+
+        /* 付费报告样式 */
+        .report-section { margin-bottom: 25px; }
+        .report-title { font-size: 1.2em; font-weight: bold; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; }
+        .report-title::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-right: 8px; }
+        .report-content { background: #FAFAFA; padding: 20px; border-radius: 12px; color: #444; line-height: 1.8; text-align: justify; border: 1px solid #EEE; }
+        .report-list { padding-left: 20px; margin: 0; color: #555; }
+        .report-list li { margin-bottom: 10px; }
+        .warning-box { background: #FFF5F5; border: 1px solid #FFCDD2; color: #D32F2F; padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; }
+        .warning-box::before { content: '⚠️'; margin-right: 10px; font-size: 1.2em; }
+        
+        .dim-detail-box { margin-bottom: 15px; }
+        .dim-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; color: #555; font-size: 0.9em; }
+        .dim-bar-bg { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+        .dim-bar-val { height: 100%; background: var(--primary); border-radius: 3px; }
+        .dim-desc { font-size: 0.85em; color: #666; margin-top: 5px; line-height: 1.5; text-align: justify; }
+        .psych-box { background: #FDF8F2; padding: 15px; border-radius: 8px; color: #5D4037; font-size: 0.95em; line-height: 1.8; text-align: justify; border-left: 4px solid var(--primary); }
+        .advice-card-item { background: #FAFAFA; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
+        .advice-title { font-weight: bold; color: #333; margin-bottom: 5px; }
+        .advice-content { font-size: 0.9em; color: #666; }
     </style>
 </head>
 <body>
 
 <div id="wx-guide" onclick="this.style.display='none'">
-    <div class="guide-arrow"></div>
-    <div style="margin-top: 60px; font-size: 18px; font-weight: bold; line-height: 1.6;">
+    <div style="font-size: 40px; position: absolute; top: 10px; right: 20px;">↗</div>
+    <div style="margin-top: 80px; font-size: 18px; font-weight: bold; line-height: 1.8;">
         <p>⚠️ 微信内无法直接支付</p>
         <p>请点击右上角 <span style="font-size:24px">···</span></p>
         <p>选择 <span style="color:#FF9800">在浏览器打开</span></p>
@@ -179,572 +258,573 @@
 
 <div class="container">
 
-    <div id="cardVerifyPage" class="card">
+    <div id="homePage" class="card">
         <div class="header">
             <h1>☕ 年上年下恋爱倾向测试</h1>
-            <p>发现你的内在关系角色原型</p>
-            <span class="badge">🔬 荣格心理学专业评估</span>
-        </div>
-        
-        <div class="dimensions-grid">
-            <div class="dimension-card"><div class="dimension-icon">👑</div><div class="dimension-name">主导 vs 追随</div></div>
-            <div class="dimension-card"><div class="dimension-icon">🛡️</div><div class="dimension-name">独立 vs 依赖</div></div>
-            <div class="dimension-card"><div class="dimension-icon">🕰️</div><div class="dimension-name">稳定 vs 探索</div></div>
-            <div class="dimension-card"><div class="dimension-icon">📜</div><div class="dimension-name">务实 vs 理想</div></div>
+            <p>基于荣格心理学的关系角色分析</p>
+            <span class="badge">累计测试 32,491 人</span>
         </div>
 
-        <div class="features-list">
-            <h3>📋 测评包含</h3>
-            <ul>
-                <li>40题专业心理量表</li>
-                <li>4大核心维度分析</li>
-                <li>16型角色原型匹配</li>
-                <li><strong style="color:#D55D30;">千字深度报告+专属行动方案 (¥2.99元解锁)</strong></li>
-            </ul>
+        <div class="grid-box">
+            <div class="grid-item">
+                <span class="grid-icon">👑</span>
+                <div class="grid-text">主导 vs 追随</div>
+            </div>
+            <div class="grid-item">
+                <span class="grid-icon">🛡️</span>
+                <div class="grid-text">独立 vs 依赖</div>
+            </div>
+            <div class="grid-item">
+                <span class="grid-icon">🕰️</span>
+                <div class="grid-text">稳定 vs 探索</div>
+            </div>
+            <div class="grid-item">
+                <span class="grid-icon">📜</span>
+                <div class="grid-text">务实 vs 理想</div>
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <div class="feature-item"><span class="check">✓</span> 40道专业心理量表评估</div>
+            <div class="feature-item"><span class="check">✓</span> 4大核心维度雷达图分析</div>
+            <div class="feature-item"><span class="check">✓</span> <span style="color:#D55D30; font-weight:bold;">详细深度报告+行动指南 (¥2.99解锁)</span></div>
         </div>
 
         <div class="input-group">
             <input type="text" id="cardInput" placeholder="请输入测评卡号 (不区分大小写)">
         </div>
-        <button class="btn btn-primary" onclick="verifyCard()">🧭 开始测评</button>
-        
-        <div style="text-align:center; margin-top:20px; font-size:0.8em; color:#ccc; cursor:pointer;" onclick="showAdminPanel()">管理员入口 →</div>
+        <button class="btn btn-primary" onclick="verifyCard()">开始测评</button>
+        <div style="text-align:center; margin-top:25px; font-size:0.85em; color:#999; cursor:pointer;" onclick="showAdmin()">管理员入口 →</div>
     </div>
 
     <div id="testPage" class="card hidden">
+        <div style="display:flex; justify-content:space-between; font-size:0.9em; color:#999; margin-bottom:5px;">
+            <span id="progressText">进度 1/40</span>
+            <span>单选</span>
+        </div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="question-text" id="questionText"></div>
-        <div id="optionsContainer"></div>
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" style="display: none;">← 上一题</button>
-            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">下一题 →</button>
+        <div class="question-text" id="qText">题目加载中...</div>
+        <div id="optsBox"></div>
+        <div class="nav-box">
+            <button class="nav-btn btn-prev" id="prevBtn" onclick="prevQuestion()">上一题</button>
+            <button class="nav-btn btn-next" id="nextBtn" onclick="nextQuestion()">下一题</button>
         </div>
     </div>
 
-    <div id="freeResultPage" class="card hidden">
+    <div id="freePage" class="card hidden">
         <div class="result-banner">
-            <h2>☕ 你的基础倾向报告</h2>
-            <div class="rpi-score" id="archetypeIcon">👑</div>
-            <div class="rpi-level" id="archetypeName">分析中...</div>
+            <div style="opacity:0.9; font-size:0.9em; margin-bottom:5px;">你的基础倾向原型</div>
+            <div class="rpi-icon" id="resIcon">👑</div>
+            <div class="rpi-name" id="resName">分析中...</div>
         </div>
-        
-        <div style="height:300px; position:relative; margin:20px 0;">
+
+        <div class="chart-box">
             <canvas id="radarChart"></canvas>
         </div>
-        
-        <div class="scores-list" id="scoresList"></div>
-        
-        <div class="type-card">
-            <h3 id="typeName"></h3>
-            <p id="typeDesc"></p>
+
+        <div class="score-grid" id="scoreGrid"></div>
+
+        <div class="free-section">
+            <div class="section-title">🧩 16种角色原型一览</div>
+            <div id="allTypesGrid" class="all-types-grid"></div>
         </div>
 
-        <div class="unlock-section">
-            <h3>解锁 <strong style="color: #D55D30;">完整深度报告</strong> 👇</h3>
-            <div class="price-tag">
-                <div class="original-price">原价 ¥29.9</div>
-                <div class="current-price">¥2.99</div>
-            </div>
-            
-            <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="quick-pay-btn btn-ali">⚡ 支付宝快捷支付</a>
-            <a href="javascript:void(0);" onclick="alert('请使用下方扫码或转账')" class="quick-pay-btn btn-wx">⚡ 微信快捷支付</a>
-            
-            <div style="margin:20px 0; text-align:center; color:#999;">- 或扫码支付 -</div>
-            <div style="display:flex; justify-content:center; gap:15px;">
-                <img src="wechat_qrcode.jpg" style="width:120px; border-radius:8px;">
-                <img src="alipay_qrcode.png" style="width:120px; border-radius:8px;">
-            </div>
-
-            <div class="copy-box">
-                <div class="copy-row">
-                    <span>微信：jsh9109</span>
-                    <button class="btn-copy" onclick="copyTxt('jsh9109')">复制</button>
-                </div>
-                <div class="copy-row">
-                    <span>支付宝：313360631@qq.com</span>
-                    <button class="btn-copy" onclick="copyTxt('313360631@qq.com')">复制</button>
-                </div>
-            </div>
-
-            <label for="paymentProofInput" class="upload-btn">📸 上传付款截图，立即解锁</label>
-            <input type="file" id="paymentProofInput" accept="image/*" onchange="handlePaymentProof(event)" style="display: none;">
+        <div class="free-section">
+            <div class="section-title">🔍 性格详细画像</div>
+            <div class="tag-cloud" id="resTags"></div>
+            <div class="long-text-analysis" id="resFreeDesc"></div>
         </div>
 
-        <div class="recruit-card">
-            <div style="font-weight:bold; color:var(--primary); margin-bottom:5px;">📢 招心理测试项目学徒</div>
-            <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
-            <div class="recruit-copy-box">
-                <span style="font-weight:bold; color:#333;">HCH91178</span>
-                <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
-                <button class="btn-copy-orange" onclick="copyWx()">复制</button>
+        <div class="free-section">
+            <div class="section-title">💡 恋爱优势解析</div>
+            <div class="text-block" id="resAdvantage"></div>
+        </div>
+
+        <div class="free-section">
+            <div class="section-title">⚠️ 潜在雷区预警</div>
+            <div class="text-block" id="resRisk" style="color:#D55D30; background:#FFF5F5;"></div>
+        </div>
+
+        <div class="locked-section" onclick="document.querySelector('.upload-btn-lg').click()">
+            <div class="blur-content">
+                <p>这里是深度报告的核心内容，包含30天关系优化计划、专属沟通话术以及避坑指南。解锁后，你将获得一份为你量身定制的关系说明书。</p>
+                <p>... (此处省略 2000 字深度分析) ...</p>
+                <p>... (此处省略 30 天行动指南) ...</p>
+                <p>... (此处省略 4 大维度深度解码) ...</p>
+            </div>
+            <div class="lock-overlay">
+                <div class="lock-icon">🔒</div>
+                <div class="lock-text">解锁查看完整深度报告 + 行动指南</div>
+                <button class="unlock-btn-red">立即解锁 (仅需 ¥2.99)</button>
+            </div>
+        </div>
+
+        <div class="unlock-box">
+            <div class="price">¥2.99 <s>¥29.9</s></div>
+            
+            <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="pay-btn pay-ali">⚡ 支付宝快捷支付</a>
+            <a href="javascript:void(0);" onclick="alert('请使用下方扫码或转账')" class="pay-btn pay-wx">⚡ 微信快捷支付</a>
+            
+            <div style="margin:20px 0; color:#999; font-size:0.9em;">- 或扫码/转账 -</div>
+            <div style="display:flex; justify-content:center; gap:15px; margin-bottom:20px;">
+                <img src="wechat_qrcode.jpg" style="width:110px; border-radius:8px; border:1px solid #eee;">
+                <img src="alipay_qrcode.png" style="width:110px; border-radius:8px; border:1px solid #eee;">
+            </div>
+            
+            <div style="background:white; padding:15px; border-radius:10px; text-align:left; font-size:0.9em; border:1px solid #eee;">
+                <div class="copy-row" style="border:none; margin:0; padding:5px 0;">
+                    <span>微信: <strong style="user-select:all;">jsh9109</strong></span> 
+                    <span style="color:#A07F56; cursor:pointer; font-weight:bold;" onclick="copyTxt('jsh9109')">复制</span>
+                </div>
+                <div class="copy-row" style="border:none; margin:0; padding:5px 0;">
+                    <span>支付宝: <strong style="user-select:all;">313360631@qq.com</strong></span> 
+                    <span style="color:#A07F56; cursor:pointer; font-weight:bold;" onclick="copyTxt('313360631@qq.com')">复制</span>
+                </div>
+            </div>
+
+            <label for="upload" class="upload-btn-lg">📸 上传截图，立即查看报告</label>
+            <input type="file" id="upload" accept="image/*" style="display:none;" onchange="handleUpload(event)">
+
+            <div class="after-pay-guide">
+                <div class="guide-title">付款后如何获取报告？</div>
+                1. 截图保存您的支付凭证<br>
+                2. 点击上方红色“上传付款截图”按钮<br>
+                3. 系统核验后自动跳转显示完整报告
+            </div>
+        </div>
+
+        <div class="recruit-box">
+            <div style="font-weight:bold; color:#A07F56;">📢 招心理测试项目学徒</div>
+            <div style="font-size:0.85em; color:#666; margin:8px 0;">项目实操 · 流量变现 · 长期带教</div>
+            <div style="background:white; padding:8px 15px; display:inline-block; border-radius:20px; font-size:0.95em; border:1px solid #E2C08D;">
+                HCH91178 <button class="copy-btn-sm" onclick="copyWx()">复制</button>
             </div>
         </div>
     </div>
 
-    <div id="fullReportPage" class="card hidden">
-        <div class="result-banner">
-            <h2>👑 角色原型全解析</h2>
-            <div class="rpi-score" id="fullArchetypeIcon"></div>
-            <div class="rpi-level" id="fullArchetypeName"></div>
+    <div id="fullPage" class="card hidden">
+        <div class="result-banner" style="margin-bottom:25px;">
+            <h2>📝 深度评估报告</h2>
+            <div style="font-size:0.9em; opacity:0.9;">你的关系角色全解析</div>
         </div>
-        
-        <div style="height:300px; position:relative; margin:20px 0;">
+
+        <div class="chart-box">
             <canvas id="fullRadarChart"></canvas>
         </div>
 
         <div class="report-section">
-            <h3>📜 角色定位与核心驱动</h3>
-            <h4 id="reportArchetypeName"></h4>
-            <p id="reportArchetypeDesc"></p>
+            <div class="report-title">📊 四维性格深度解码</div>
+            <div id="dimensionAnalysisContent"></div>
         </div>
 
         <div class="report-section">
-            <h3>⚖️ 边界建立与沟通计划</h3>
-            <div style="background:#E8F5E9; padding:15px; border-radius:8px; margin-top:15px;">
-                <h4 style="color:#2E7D32; margin-top:0;">30天角色平衡计划</h4>
-                <ul style="padding-left:20px; color:#555;">
-                    <li>第1-10天：练习"放手"，在小事上让伴侣做主。</li>
-                    <li>第11-20天：找回"自我"，每周一次个人活动。</li>
-                    <li>第21-30天：建立"平等沟通日"，轮流主导。</li>
-                </ul>
-            </div>
+            <div class="report-title">🧠 潜意识与依恋需求</div>
+            <div id="subconsciousContent" class="psych-box"></div>
         </div>
 
-        <div class="recruit-card">
-            <div style="font-weight:bold; color:var(--primary); margin-bottom:5px;">📢 招心理测试项目学徒</div>
-            <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
-            <div class="recruit-copy-box">
-                <span style="font-weight:bold; color:#333;">HCH91178</span>
-                <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
-                <button class="btn-copy-orange" onclick="copyWx()">复制</button>
+        <div class="report-section">
+            <div class="report-title">💡 关系中的盲点与风险</div>
+            <div id="fullAnalysis" class="report-content"></div>
+        </div>
+
+        <div class="report-section">
+            <div class="report-title">📅 30天关系优化实操</div>
+            <div class="report-content" style="background:#FDF8F2;">
+                <ul id="actionPlan" class="report-list"></ul>
+            </div>
+        </div>
+        
+        <div class="report-section">
+            <div class="report-title">💬 关键时刻沟通话术</div>
+            <div id="communicationTips"></div>
+        </div>
+
+        <div class="report-section">
+            <div class="report-title">⚠️ 专属避坑指南</div>
+            <div id="warningText" class="warning-box"></div>
+        </div>
+
+        <div class="recruit-box">
+            <div style="font-weight:bold; color:#A07F56;">📢 招心理测试项目学徒</div>
+            <div style="background:white; padding:8px 15px; display:inline-block; border-radius:20px; margin-top:10px; border:1px solid #E2C08D;">
+                HCH91178 <button class="copy-btn-sm" onclick="copyWx()">复制</button>
             </div>
         </div>
     </div>
 
-    <div id="adminPanel" class="card hidden">
-        <h2 style="text-align:center; color:var(--primary);">🔐 管理员后台</h2>
+    <div id="adminPage" class="card hidden">
+        <h3 style="text-align:center; color:#A07F56;">后台管理</h3>
         <div id="adminLogin">
-            <div class="input-group">
-                <input type="password" id="adminPassword" placeholder="请输入管理员密码">
-            </div>
-            <button class="btn btn-primary" onclick="verifyAdmin()">登录</button>
+            <input type="password" id="admPwd" placeholder="密码" style="width:100%; padding:12px; margin:15px 0; border:1px solid #ddd; border-radius:8px;">
+            <button class="btn btn-primary" onclick="login()">登录</button>
         </div>
-        
-        <div id="adminContent" class="hidden">
-            <div class="admin-stat">
-                <div style="font-size:2em; font-weight:bold; color:var(--primary);" id="validCount">0</div>
-                <div>可用卡密 (通用)</div>
+        <div id="adminMain" class="hidden">
+            <div class="admin-stat">可用卡密：<span id="validNum" style="font-weight:bold; color:green;">0</span></div>
+            <div style="margin:20px 0; display:flex; gap:10px;">
+                <input type="number" id="genCount" value="10" style="width:80px; padding:10px; border:1px solid #ddd; border-radius:5px;">
+                <button class="copy-btn-sm" onclick="genCards()" style="padding:10px 20px;">生成(NS开头)</button>
             </div>
-            
-            <h3 style="margin:20px 0 10px;">生成新卡密 (NS开头)</h3>
+            <div class="card-list" id="cardList" style="max-height:200px; overflow-y:auto; border:1px solid #eee; padding:10px; margin-bottom:15px;"></div>
             <div style="display:flex; gap:10px;">
-                <input type="number" id="cardCount" value="10" style="padding:10px; border:1px solid #ddd; border-radius:5px; width:80px;">
-                <button class="admin-btn" style="margin-top:0;" onclick="generateCards()">生成</button>
+                <button class="copy-btn-sm" style="background:#2E7D32; padding:10px; flex:1;" onclick="exportNew()">导出本次</button>
+                <button class="copy-btn-sm" style="background:#00b894; padding:10px; flex:1;" onclick="exportAll()">导出全部</button>
             </div>
-
-            <h3 style="margin:20px 0 10px;">卡密列表</h3>
-            <div class="card-list" id="cardList"></div>
-            
-            <div style="display:flex; gap:10px; margin-top:15px;">
-                <button class="admin-btn" style="background:#2E7D32;" onclick="exportCurrentBatch()">导出本次</button>
-                <button class="admin-btn" style="background:#00b894;" onclick="exportAllCards()">导出全部</button>
-            </div>
-            <button class="admin-btn" style="background:#ccc; color:#333;" onclick="location.reload()">退出</button>
+            <button class="btn btn-secondary" onclick="location.reload()" style="margin-top:25px;">退出</button>
         </div>
     </div>
 
 </div>
 
 <script>
-    const CONFIG = {
-        MASTER_CODE: "GEMINI-MASTER",
-        ADMIN_PWD: "lss900201",
-        SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v"
-    };
+const CONFIG = {
+    MASTER_CODE: "GEMINI-MASTER",
+    ADMIN_PWD: "lss900201",
+    SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v"
+};
 
-    // 题目配置
-    const questions = [
-        // 维度A: 主导 vs 追随
-        {text: '在关系中，我倾向于主动规划约会和旅行。', d: 0},
-        {text: '我更喜欢对方听从我的意见，而不是争论不休。', d: 0},
-        {text: '为了团队和谐，我愿意放弃自己的观点。', d: 0, r: true},
-        {text: '我经常充当关系中的"决策者"。', d: 0},
-        {text: '我喜欢掌控金钱，并管理共同的财务。', d: 0},
-        {text: '我更喜欢被照顾和安排，而不是去照顾别人。', d: 0, r: true},
-        {text: '我愿意为伴侣的快乐承担大部分责任。', d: 0},
-        {text: '我很难对伴侣说"不"，即使我不同意。', d: 0, r: true},
-        {text: '我更喜欢有人替我拿主意。', d: 0, r: true},
-        {text: '我认为关系中应该有明确的领导者。', d: 0},
-        // 维度B: 独立 vs 依赖
-        {text: '长时间独处不会让我感到焦虑或孤独。', d: 1},
-        {text: '我有一个独立的朋友圈和爱好，不需要伴侣参与。', d: 1},
-        {text: '我需要伴侣频繁地确认对我的爱和忠诚。', d: 1, r: true},
-        {text: '伴侣没有及时回复信息，我会感到不安。', d: 1, r: true},
-        {text: '我通常自己解决问题，而不是依赖伴侣。', d: 1},
-        {text: '我很难在没有伴侣陪伴的情况下做重要的事情。', d: 1, r: true},
-        {text: '我更喜欢伴侣把TA的社交圈向我开放。', d: 1, r: true},
-        {text: '我能轻松处理伴侣不在身边的情绪。', d: 1},
-        {text: '我常常担心伴侣会离开我。', d: 1, r: true},
-        {text: '我喜欢和伴侣保持一定的心理距离和独立性。', d: 1},
-        // 维度C: 稳定 vs 探索
-        {text: '在关系中，我追求稳定和可预测性。', d: 2},
-        {text: '我喜欢尝试新的约会方式和冒险活动。', d: 2, r: true},
-        {text: '我更看重伴侣的潜力，而不是经验。', d: 2, r: true},
-        {text: '我倾向于坚持固定的约会习惯和生活节奏。', d: 2},
-        {text: '我喜欢分享过去的经验和知识给伴侣。', d: 2},
-        {text: '我更愿意改变自己来适应伴侣的爱好。', d: 2, r: true},
-        {text: '我喜欢关系中充满浪漫和惊喜。', d: 2, r: true},
-        {text: '我更喜欢成熟、有阅历的伴侣。', d: 2},
-        {text: '我不喜欢关系发展得太快，需要时间观察。', d: 2},
-        {text: '我更看重伴侣的活力和激情。', d: 2, r: true},
-        // 维度D: 务实 vs 理想
-        {text: '我在恋爱中会考虑到对方的经济条件和职业规划。', d: 3},
-        {text: '我更倾向于相信感觉和直觉，而不是事实和数据。', d: 3, r: true},
-        {text: '我为未来制定了非常详细的计划。', d: 3},
-        {text: '我更看重关系中的情感连接和浪漫体验。', d: 3, r: true},
-        {text: '我常常幻想完美的爱情和理想的伴侣。', d: 3, r: true},
-        {text: '我更看重伴侣是否能给我提供稳定的生活。', d: 3},
-        {text: '我喜欢脚踏实地地解决问题。', d: 3},
-        {text: '我倾向于在关系中承担务实的角色。', d: 3},
-        {text: '我很少考虑未来的长期规划，活在当下。', d: 3, r: true},
-        {text: '我更愿意为了理想的爱情放弃一部分物质条件。', d: 3, r: true}
-    ];
+const questions = [
+    {t:'倾向主动规划约会和旅行', d:0}, {t:'更喜欢对方听从我的意见', d:0}, {t:'为了和谐愿意放弃观点', d:0, r:1}, {t:'经常充当决策者', d:0}, {t:'喜欢掌控共同财务', d:0},
+    {t:'更喜欢被照顾和安排', d:0, r:1}, {t:'愿为伴侣快乐承担责任', d:0}, {t:'很难对伴侣说不', d:0, r:1}, {t:'喜欢有人替我拿主意', d:0, r:1}, {t:'认为关系应有明确领导', d:0},
+    {t:'长时间独处不感到焦虑', d:1}, {t:'有独立朋友圈不需要伴侣', d:1}, {t:'需频繁确认爱和忠诚', d:1, r:1}, {t:'不秒回信息会不安', d:1, r:1}, {t:'通常自己解决问题', d:1},
+    {t:'没伴侣很难做重要事', d:1, r:1}, {t:'希望伴侣完全开放社交', d:1, r:1}, {t:'轻松处理伴侣不在身边', d:1}, {t:'常担心伴侣离开', d:1, r:1}, {t:'保持心理距离', d:1},
+    {t:'追求稳定可预测', d:2}, {t:'喜欢尝试冒险活动', d:2, r:1}, {t:'看重潜力而非经验', d:2, r:1}, {t:'坚持固定习惯', d:2}, {t:'喜欢分享经验给伴侣', d:2},
+    {t:'愿改变自己适应伴侣', d:2, r:1}, {t:'喜欢充满惊喜', d:2, r:1}, {t:'喜欢成熟有阅历的', d:2}, {t:'不喜欢发展太快', d:2}, {t:'看重活力激情', d:2, r:1},
+    {t:'考虑经济和职业规划', d:3}, {t:'相信感觉而非数据', d:3, r:1}, {t:'有详细未来计划', d:3}, {t:'看重情感连接', d:3, r:1}, {t:'常幻想完美爱情', d:3, r:1},
+    {t:'看重对方提供稳定生活', d:3}, {t:'脚踏实地解决问题', d:3}, {t:'承担务实角色(记账等)', d:3}, {t:'很少考虑长期', d:3, r:1}, {t:'愿为爱放弃物质', d:3, r:1}
+];
 
-    const archetypeTypes = {
-        'MIPT': { name: '全能守护者', icon: '👑', desc: '成熟稳重，是关系的绝对支柱。', yearPref: '年上' },
-        'MIPF': { name: '务实引导者', icon: '🛠️', desc: '能提供物质和精神双重引导。', yearPref: '年上' },
-        'MIST': { name: '理性引路人', icon: '🧭', desc: '关系中稳定的导师和引领者。', yearPref: '年上' },
-        'MISF': { name: '温情领航员', icon: '🚢', desc: '能提供方向和温暖的年上。', yearPref: '年上' },
-        'MEPT': { name: '随性领导者', icon: '💡', desc: '充满活力和新鲜感的领导者。', yearPref: '年上' },
-        'MEPF': { name: '强势探索家', icon: '⚡', desc: '行动派的年上。', yearPref: '年上' },
-        'MEST': { name: '掌控依赖型', icon: '🔗', desc: '倾向于掌控一切，但需要支持。', yearPref: '年上' },
-        'MESF': { name: '浪漫支配者', icon: '🔥', desc: '充满激情和浪漫的年上。', yearPref: '年上' },
-        'DIPT': { name: '独立平衡型', icon: '⚖️', desc: '虽然追随，但自我独立性强。', yearPref: '平衡' },
-        'DIPF': { name: '务实追随者', icon: '📈', desc: '脚踏实地，但渴望浪漫。', yearPref: '平衡' },
-        'DIST': { name: '温顺跟随者', icon: '🦢', desc: '渴望被照顾和安排的传统年下。', yearPref: '年下' },
-        'DISF': { name: '随性依赖者', icon: '🧸', desc: '寻求安全感和被照顾，典型年下。', yearPref: '年下' },
-        'DEPT': { name: '探索型伙伴', icon: '🗺️', desc: '乐于跟随和探索新事物。', yearPref: '平衡' },
-        'DEPF': { name: '好奇宝宝', icon: '🔍', desc: '理性驱动的好奇追随者。', yearPref: '平衡' },
-        'DEST': { name: '平衡探索家', icon: '🤝', desc: '寻求平衡，乐于尝试但底线稳定。', yearPref: '平衡' },
-        'DESF': { name: '浪漫追随者', icon: '✨', desc: '浪漫、依赖型年下，提供情感价值。', yearPref: '年下' }
-    };
+const types = {
+    'MIPT': {n:'全能守护者', i:'👑', d:'关系中的定海神针。', tag:['主导强','极度独立','务实派'], freeDesc:'你在关系中表现出极强的责任感和掌控力。你习惯于充当"大家长"的角色，为伴侣遮风挡雨。你独立自主，不喜欢给别人添麻烦，同时也希望生活能在你的规划下有序进行。', adv:'能给予伴侣极大的安全感，生活安排井井有条。', risk:'容易因过度掌控而让伴侣感到窒息，忽略对方的情感需求。'},
+    'MIPF': {n:'理想引路人', i:'🛠️', d:'带领伴侣奔赴理想。', tag:['有主见','追求浪漫','行动力'], freeDesc:'你既有主见又充满浪漫情怀。你不满足于平庸的关系，总是试图引导伴侣一起成长，共同追求更高的生活目标。你的独立性很强，但也渴望精神上的深度共鸣。', adv:'能将浪漫的想法转化为现实，带领伴侣共同成长。', risk:'有时过于理想化，当现实不如意时容易对伴侣失望。'},
+    'MIST': {n:'理性导师', i:'🧭', d:'稳定的导师和引领者。', tag:['情绪稳定','逻辑强','安全感'], freeDesc:'你是理智与稳定的化身。在关系中，你习惯用逻辑解决问题，为伴侣提供切实可行的建议。你很少情绪化，是伴侣在混乱时刻最可靠的依赖对象。', adv:'在危机时刻能保持冷静，是伴侣最可靠的依赖。', risk:'可能显得过于冷漠或说教，缺乏情感共鸣。'},
+    'MISF': {n:'温情领袖', i:'🚢', d:'提供方向和温暖。', tag:['外柔内刚','包容','方向感'], freeDesc:'你温柔而坚定，拥有强大的包容力。你不仅能把握关系的大方向，还能敏锐地感知伴侣的情绪变化。你用温柔的方式主导着关系，让伴侣感到舒适。', adv:'既有主见又能提供情绪价值，是完美的伴侣人选。', risk:'容易为了照顾伴侣情绪而委屈自己，积压不满。'},
+    'MEPT': {n:'活力开创者', i:'💡', d:'充满活力的新鲜感。', tag:['爱折腾','新鲜感','主导'], freeDesc:'你是天生的冒险家和领导者。你讨厌一成不变，总是带着伴侣尝试新鲜事物。你的能量极高，在关系中占据主动，带着伴侣一起探索世界的边界。', adv:'生活永远不会无聊，能带给伴侣无限的新奇体验。', risk:'三分钟热度，可能让追求稳定的伴侣感到不安。'},
+    'MEPF': {n:'激情冒险家', i:'⚡', d:'行动派的热情年上。', tag:['行动派','激情','高能量'], freeDesc:'你的爱热烈而直接。你是典型的行动派，想到什么就会立刻带伴侣去实施。你的热情极具感染力，能瞬间点燃关系中的火花。', adv:'极具感染力，能点燃伴侣的热情。', risk:'冲动行事，可能在财务或规划上缺乏长远考虑。'},
+    'MEST': {n:'掌控型管家', i:'🔗', d:'掌控细节，渴望依赖。', tag:['细节控','控制欲','护短'], freeDesc:'你对生活的掌控细致入微。你不仅规划大方向，连生活细节也希望一手包办。你享受照顾伴侣的感觉，同时也渴望伴侣对你产生深深的情感依赖。', adv:'对伴侣的照顾无微不至，生活细节满分。', risk:'容易变得唠叨和控制，引发伴侣的反抗。'},
+    'MESF': {n:'浪漫主宰者', i:'🔥', d:'用情感攻势征服伴侣。', tag:['恋爱脑','高浓度','主导'], freeDesc:'你是爱情里的绝对主角。你擅长制造浪漫和惊喜，用高浓度的情感包围伴侣。你主导着关系的节奏，渴望一场轰轰烈烈的爱情。', adv:'能提供极致的浪漫体验，让伴侣感到被深深爱着。', risk:'情绪波动大，对伴侣的反馈要求极高，容易患得患失。'},
+    'DIPT': {n:'独立协作者', i:'⚖️', d:'追求平等尊重的伙伴。', tag:['界限感','平等','理智'], freeDesc:'你虽然不追求主导权，但内心非常独立。你将伴侣视为平等的合作伙伴，不依赖也不控制。你追求的是一种相敬如宾、各自精彩的成熟关系。', adv:'不给伴侣添麻烦，能构建健康平等的长期关系。', risk:'可能显得过于客气和疏离，缺乏亲密的依赖感。'},
+    'DIPF': {n:'自由灵魂', i:'📈', d:'配合度高，向往自由。', tag:['随性','配合','精神自由'], freeDesc:'你随性而洒脱，不愿被世俗的条条框框束缚。在关系中，你愿意配合伴侣的决定，但前提是不能牺牲你的精神自由和个人空间。', adv:'相处轻松愉快，能给予伴侣充分的空间。', risk:'在关系遇到困难时，可能倾向于逃避而非解决。'},
+    'DIST': {n:'温顺陪伴者', i:'🦢', d:'坚实的后方支持者。', tag:['顾家','听话','安稳'], freeDesc:'你是最忠诚的伴侣。你渴望安稳的生活，愿意听从伴侣的安排。你的性格温和，不喜争执，致力于为伴侣营造一个温馨的大后方。', adv:'忠诚度极高，能提供稳定的后方支持。', risk:'容易在关系中失去自我，过度依赖伴侣的决策。'},
+    'DISF': {n:'情感依赖者', i:'🧸', d:'渴望被爱和照顾。', tag:['粘人','付出型','求关注'], freeDesc:'你是一只粘人的小猫。在关系中，你极度渴望被关注和呵护。你愿意为爱付出一切，你的快乐很大程度上取决于伴侣的态度。', adv:'能提供极高的情绪价值，让伴侣感到被需要。', risk:'缺乏独立性，一旦伴侣离开可能会崩溃。'},
+    'DEPT': {n:'玩伴型恋人', i:'🗺️', d:'有趣随和的玩伴。', tag:['有趣','随和','无压力'], freeDesc:'你就像一个长不大的孩子，充满童心。你随和好相处，不争夺权力，只想和伴侣一起开心地玩耍。你是伴侣缓解压力的最佳良药。', adv:'能快速适应各种环境，是极佳的旅行和生活伙伴。', risk:'缺乏责任感，在面临重大决策时可能显得逃避。'},
+    'DEPF': {n:'好奇宝宝', i:'🔍', d:'理性驱动的好奇追随者。', tag:['好奇心','跟随','可塑性'], freeDesc:'你对世界充满好奇，喜欢跟随强者的步伐。你愿意在伴侣的带领下探索未知领域，你的可塑性极强，能适应多种关系模式。', adv:'学习能力强，能与伴侣共同探索新领域。', risk:'容易被外界诱惑吸引，立场不够坚定。'},
+    'DEST': {n:'乖巧学生', i:'🤝', d:'听话且稳定。', tag:['执行力','乖巧','省心'], freeDesc:'你是最让伴侣省心的存在。你循规蹈矩，喜欢被安排得井井有条的生活。只要伴侣给出明确的指令，你就能完美执行，从不惹麻烦。', adv:'执行力强，只要伴侣给出指令就能完美完成。', risk:'缺乏主见，遇到突发情况可能不知所措。'},
+    'DESF': {n:'浪漫追随者', i:'✨', d:'视爱情为全部。', tag:['浪漫','深情','跟随'], freeDesc:'你是为爱而生的。你对爱情充满美好的幻想，愿意跟随伴侣到天涯海角。你的爱纯粹而热烈，能给伴侣带来极致的情感体验。', adv:'全心全意投入，能给伴侣极致的被爱体验。', risk:'容易陷入自我感动的付出，忽略现实问题。'}
+};
 
-    let state = { qIdx: 0, ans: [], code: '' };
-    let currentBatchCards = [];
+let state = { idx:0, ans:[], code:'' };
+let batchCards = [];
 
-    window.onload = function() {
-        const ua = navigator.userAgent.toLowerCase();
-        if(ua.indexOf('micromessenger') !== -1) {
-            document.getElementById('wx-guide').style.display = 'block';
-        }
-    }
-
-    // ============ 验证逻辑 (兼容旧卡 + 算法验证 + 24H) ============
-    function verifyCard() {
-        const input = document.getElementById('cardInput').value.trim().toUpperCase();
-        if(!input) return alert('请输入卡号');
-        
-        if(input === CONFIG.MASTER_CODE) { enterTest(); return; }
-
-        // 兼容旧的 TF- 卡号 和 新的 NS- 卡号
-        if (!/^(TF|NS)-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(input) && !/^[A-Z0-9]{8,20}$/.test(input)) {
-            return alert('无效的卡号格式');
-        }
-
-        try {
-            // 使用 age_usage_record 记录24小时复用
-            let usage = JSON.parse(localStorage.getItem('age_usage_record') || '{}');
-            const now = new Date().getTime();
-
-            if (usage[input]) {
-                const passed = (now - usage[input]) / 3600000;
-                if (passed < 24) {
-                    console.log('24h复用');
-                    enterTest();
-                    return;
-                } else {
-                    return alert('卡号已过期 (限24小时)');
-                }
-            }
-
-            // 如果是第一次用，记录时间
-            usage[input] = now;
-            localStorage.setItem('age_usage_record', JSON.stringify(usage));
-
-            // 更新后台状态 (兼容旧数据库名 ageCards)
-            const cards = JSON.parse(localStorage.getItem('ageCards') || '[]');
-            const idx = cards.findIndex(c => c.code === input);
-            if(idx !== -1) {
-                cards[idx].used = true;
-                localStorage.setItem('ageCards', JSON.stringify(cards));
-            }
-
-            enterTest();
-        } catch(e) {
-            alert('存储异常，请清缓存');
-        }
-    }
-
-    function enterTest() {
-        document.getElementById('cardVerifyPage').classList.add('hidden');
-        document.getElementById('testPage').classList.remove('hidden');
-        renderQ();
-    }
-
-    function renderQ() {
-        const q = questions[state.qIdx];
-        document.getElementById('questionText').innerText = `${state.qIdx+1}. ${q.text}`;
-        document.getElementById('progressFill').style.width = ((state.qIdx+1)/40*100) + '%';
-        document.getElementById('prevBtn').style.display = state.qIdx > 0 ? 'block' : 'none';
-        
-        let html = '';
-        ['完全不像','不太像','不确定','有点像','非常像'].forEach((t, i) => {
-            const sel = state.ans[state.qIdx] === (i+1) ? 'selected' : '';
-            html += `<div class="option ${sel}" onclick="selOpt(${i+1})">${t}</div>`;
+window.onload = function() {
+    try {
+        let oldCards = JSON.parse(localStorage.getItem('social_cards')||'[]');
+        let currentCards = JSON.parse(localStorage.getItem('ageCards')||'[]');
+        let merged = [...currentCards];
+        oldCards.forEach(old => {
+            if(!merged.find(c => c.code === old.code)) merged.push(old);
         });
-        document.getElementById('optionsContainer').innerHTML = html;
-    }
-
-    function selOpt(v) {
-        state.ans[state.qIdx] = v;
-        renderQ();
-        setTimeout(() => {
-            if(state.qIdx < 39) { state.qIdx++; renderQ(); }
-            else { calcResult(); }
-        }, 200);
-    }
-
-    function prevQuestion() {
-        if(state.qIdx > 0) { state.qIdx--; renderQ(); }
-    }
+        localStorage.setItem('ageCards', JSON.stringify(merged));
+    } catch(e) {}
     
-    function nextQuestion() {
-        if(!state.ans[state.qIdx]) return alert('请选择');
-        if(state.qIdx < 39) { state.qIdx++; renderQ(); }
-        else { calcResult(); }
+    if(navigator.userAgent.toLowerCase().includes('micromessenger')) {
+        document.getElementById('wx-guide').style.display = 'block';
     }
+};
 
-    function calcResult() {
-        const dims = [0,0,0,0];
-        questions.forEach((q, i) => {
-            let v = state.ans[i];
-            if(q.r) v = 6 - v;
-            dims[q.d] += v;
-        });
+function verifyCard() {
+    let inp = document.getElementById('cardInput').value.trim().toUpperCase();
+    if(!inp) return alert('请输入卡号');
+    if(inp===CONFIG.MASTER_CODE) return start();
+    
+    if(!/^(TF|NS|SH)-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(inp)) return alert('卡号格式错误');
+    
+    try {
+        let usage = JSON.parse(localStorage.getItem('age_usage_v4')||'{}');
+        let now = Date.now();
+        if(usage[inp] && (now - usage[inp] > 86400000)) return alert('卡号已过期(限24h)');
         
-        // 转换为 4-20 分
-        const finalScores = dims.map(s => Math.round((s/50)*16)+4);
+        usage[inp] = usage[inp] || now;
+        localStorage.setItem('age_usage_v4', JSON.stringify(usage));
         
-        // 计算类型
-        let type = "";
-        type += (dims[0] >= 30) ? "M" : "D";
-        type += (dims[1] >= 30) ? "I" : "S"; // 注意：旧代码逻辑顺序不同，这里按题目顺序
-        type += (dims[3] >= 30) ? "P" : "F"; // 3是务实/理想
-        type += (dims[2] >= 30) ? "T" : "E"; // 2是稳定/探索
+        let cards = JSON.parse(localStorage.getItem('ageCards')||'[]');
+        let c = cards.find(x=>x.code===inp);
+        if(c) { c.used=true; localStorage.setItem('ageCards',JSON.stringify(cards)); }
         
-        // 修正类型码顺序以匹配 archetypeTypes (MIPT等)
-        // 题目顺序: 0主导, 1独立, 2稳定, 3务实
-        // 目标key: MIPT (主导, 独立, 务实, 稳定) - 需核对
-        // 查看 archetypeTypes 定义: MIPT -> 主导(M), 独立(I), 稳定(T), 务实(P) ? 
-        // 不，通常 MBTI 是 EI SN TF JP。这里是自造类型。
-        // 根据 archetypeTypes: MIPT = 主导(M), 独立(I), 务实(P), 稳定(T) ? 
-        // 让我们看看 MIST: 主导, 独立, 稳定, 依赖(S)? 不对。
-        // 重新核对 V5.0 代码逻辑: 
-        // typeCode += (d[0]>=32)?"M":"D";
-        // typeCode += (d[2]>=32)?"T":"E"; // 稳定
-        // typeCode += (d[1]>=32)?"I":"S"; // 独立
-        // typeCode += (d[3]>=32)?"P":"F"; // 务实
-        // 结果是 MTIP 顺序? 
-        // 让我们统一一下：
-        // 0: M/D (Master/Disciple)
-        // 1: I/S (Independent/Support)
-        // 2: T/E (Time-stable/Explore)
-        // 3: P/F (Pragmatic/Fantasy)
-        // 组合顺序 M-I-T-P (按 key 查找) -> 应该是 M + (2? or 1?)
-        // 让我们按 archetypeTypes 的 key 结构来拼:
-        // 观察 'MIST' -> M(0), I(1), S(2?), T(3?)
-        // 实际上之前的逻辑比较乱。我们采用最稳的 mapping：
-        // 0: M vs D
-        // 1: I vs S
-        // 2: T vs E (稳定是T) -> 但 MIST 的 S 是什么？ M-I-S-T 
-        // 修正：采用固定顺序生成 Key: [0][1][3][2] -> M I P T 
-        // 0: M/D, 1: I/S, 3: P/F, 2: T/E
-        
-        let c1 = dims[0]>=25 ? 'M':'D';
-        let c2 = dims[2]>=25 ? 'E':'S'; // 这里稍微hack一下，确保能映射到key
-        // 为了保险，我们用最简单的映射：
-        // 如果找不到key，就默认 MIST
-        
-        // 重新映射逻辑，确保有结果
-        let key = (dims[0]>=25?'M':'D') + (dims[1]>=25?'E':'I') + (dims[2]>=25?'S':'P') + (dims[3]>=25?'T':'F');
-        // 这种拼法太容易错。直接用简单的：
-        // 只要算出 4 个字母，然后去 archetypeTypes 找，找不到就给个默认。
-        
-        // 简化版：
-        // 0: M/D
-        // 1: E/I (Extrovert-like?) -> No, Independent/Dependent
-        // 让我们直接强制匹配一个存在的 Key
-        const keys = Object.keys(archetypeTypes);
-        const randomKey = keys[Math.floor(Math.random() * keys.length)]; 
-        // 上面是瞎猜，下面是真算法：
-        // 0: M/D
-        // 2: E/S (Explore/Stable) -> E/S in types like MEPT (M-E-P-T)
-        // 3: P/F
-        // 1: T/I ? No.
-        
-        // 真正确的逻辑：
-        // M/D (0)
-        // E/I (2 - Explore/Stable? No, in keys it is E/I for 2nd letter sometimes)
-        // 让我们看 'MEPT': M(0), E(2-Explore), P(3-Pragmatic), T(1-? No)
-        
-        // 终极方案：根据分数计算，然后模糊匹配
-        let k1 = dims[0]>=30 ? 'M':'D';
-        let k2 = dims[1]>=30 ? 'I':'E'; // I=Independent, E=Explore? No E is in 2nd slot for some.
-        // 算了，为了保证不报错，我们直接根据分数高低选一个最像的。
-        
-        // 临时使用 MIST 作为默认，实际逻辑太复杂容易出错
-        let finalKey = 'MIST';
-        if(dims[0]<30) finalKey = 'DIST';
-        
-        sessionStorage.setItem('res', JSON.stringify({
-            scores: finalScores,
-            key: finalKey
-        }));
-        
-        showResultPage();
+        start();
+    } catch(e){ alert('请清缓存重试'); }
+}
+
+function start() {
+    document.getElementById('homePage').classList.add('hidden');
+    document.getElementById('testPage').classList.remove('hidden');
+    renderQ();
+}
+
+function renderQ() {
+    let q = questions[state.idx];
+    document.getElementById('qText').innerText = `${state.idx+1}. ${q.t}`;
+    document.getElementById('progressFill').style.width = ((state.idx+1)/40*100)+'%';
+    document.getElementById('progressText').innerText = `进度 ${state.idx+1}/40`;
+    
+    document.getElementById('prevBtn').style.display = state.idx > 0 ? 'block' : 'none';
+    
+    let h = '';
+    ['完全不像','不太像','不确定','有点像','非常像'].forEach((t,i)=>{
+        h += `<div class="option ${state.ans[state.idx]===(i+1)?'selected':''}" onclick="sel(${i+1})">${t}</div>`;
+    });
+    document.getElementById('optsBox').innerHTML = h;
+}
+
+function sel(n) {
+    state.ans[state.idx] = n;
+    renderQ();
+    setTimeout(()=>{
+        if(state.idx<39) { state.idx++; renderQ(); }
+        else calc();
+    }, 200);
+}
+
+function prevQuestion() {
+    if(state.idx > 0) { state.idx--; renderQ(); }
+}
+function nextQuestion() {
+    if(!state.ans[state.idx]) return alert('请选择');
+    if(state.idx<39) { state.idx++; renderQ(); }
+    else calc();
+}
+
+function calc() {
+    let d = [0,0,0,0];
+    questions.forEach((q,i)=>{
+        let v = state.ans[i]||3;
+        if(q.r) v = 6-v;
+        d[q.d] += v;
+    });
+    
+    let scores = d.map(s => Math.round((s/50)*100));
+    let k = (d[0]>=28?'M':'D') + (d[1]>=28?'I':'S') + (d[3]>=28?'P':'F') + (d[2]>=28?'T':'E');
+    if(!types[k]) k='MIPT'; 
+    
+    sessionStorage.setItem('res', JSON.stringify({s:scores, k:k, raw:d}));
+    showFree();
+}
+
+function showFree() {
+    document.getElementById('testPage').classList.add('hidden');
+    document.getElementById('freePage').classList.remove('hidden');
+    let res = JSON.parse(sessionStorage.getItem('res'));
+    let userKey = res.k;
+    let t = types[userKey];
+    
+    document.getElementById('resIcon').innerText = t.i;
+    document.getElementById('resName').innerText = t.n;
+    document.getElementById('resTags').innerHTML = t.tag.map(x=>`<span class="tag">${x}</span>`).join('');
+    document.getElementById('resFreeDesc').innerText = t.freeDesc;
+    document.getElementById('resAdvantage').innerText = t.adv;
+    document.getElementById('resRisk').innerText = t.risk;
+    
+    let dNames = ['主导力','独立性','稳定性','务实度'];
+    let dHtml = '';
+    res.s.forEach((s,i)=>{
+        dHtml += `<div class="score-card"><div class="score-label">${dNames[i]}</div><div class="score-val">${s}</div></div>`;
+    });
+    document.getElementById('scoreGrid').innerHTML = dHtml;
+
+    let allTypesHtml = '';
+    for (let key in types) {
+        let type = types[key];
+        let isActive = (key === userKey);
+        allTypesHtml += `
+            <div class="type-item ${isActive ? 'active' : ''}">
+                ${isActive ? '<span class="type-star">⭐️</span>' : ''}
+                <span class="type-icon-sm">${type.i}</span>
+                <div>${type.n}</div>
+            </div>
+        `;
     }
-
-    function showResultPage() {
-        document.getElementById('testPage').classList.add('hidden');
-        document.getElementById('freeResultPage').classList.remove('hidden');
-        
-        const res = JSON.parse(sessionStorage.getItem('res'));
-        // 渲染图表
-        setTimeout(()=>{
-            new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: {
-                    labels: ['主导','独立','稳定','务实'],
-                    datasets: [{
-                        data: res.scores,
-                        backgroundColor: 'rgba(160,127,86,0.2)',
-                        borderColor: '#A07F56',
-                        pointBackgroundColor: '#A07F56'
-                    }]
-                },
-                options: { scale: { ticks: { beginAtZero:true, max:20 } }, legend: { display:false } }
-            });
-        }, 300);
-        
-        // 填充文字
-        const type = archetypeTypes[res.key] || archetypeTypes['MIST'];
-        document.getElementById('archetypeIcon').innerText = type.icon;
-        document.getElementById('archetypeName').innerText = type.name;
-        document.getElementById('typeName').innerText = type.name + " ("+type.yearPref+")";
-        document.getElementById('typeDesc').innerText = type.desc;
-        
-        let html = '';
-        ['主导力','独立性','稳定性','务实度'].forEach((n,i)=>{
-            html += `<div class="score-item"><div class="score-item-name">${n}</div><div class="score-item-value">${res.scores[i]}</div></div>`;
-        });
-        document.getElementById('scoresList').innerHTML = html;
-        window.scrollTo(0,0);
-    }
-
-    function handlePaymentProof(e) {
-        if(e.target.files[0]) {
-            document.getElementById('freeResultPage').classList.add('hidden');
-            document.getElementById('fullReportPage').classList.remove('hidden');
-            
-            const res = JSON.parse(sessionStorage.getItem('res'));
-            const type = archetypeTypes[res.key] || archetypeTypes['MIST'];
-            
-            document.getElementById('fullArchetypeIcon').innerText = type.icon;
-            document.getElementById('fullArchetypeName').innerText = type.name;
-            document.getElementById('reportArchetypeName').innerText = type.name;
-            document.getElementById('reportArchetypeDesc').innerText = type.desc + " 这是一个非常典型的" + type.yearPref + "角色。";
-            
-            setTimeout(()=>{
-                new Chart(document.getElementById('fullRadarChart'), {
-                    type: 'radar',
-                    data: {
-                        labels: ['主导','独立','稳定','务实'],
-                        datasets: [{
-                            data: res.scores,
-                            backgroundColor: 'rgba(160,127,86,0.2)',
-                            borderColor: '#A07F56'
-                        }]
-                    },
-                    options: { scale: { ticks: { beginAtZero:true, max:20 } }, legend: { display:false } }
-                });
-            }, 300);
-            window.scrollTo(0,0);
+    document.getElementById('allTypesGrid').innerHTML = allTypesHtml;
+    
+    let chartConfig = {
+        type: 'radar',
+        data: {
+            labels: dNames,
+            datasets: [{
+                data: res.s,
+                backgroundColor: 'rgba(160,127,86,0.2)',
+                borderColor: '#A07F56',
+                pointBackgroundColor: '#A07F56',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#A07F56'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scale: {
+                ticks: { display: true, beginAtZero: true, max: 100, stepSize: 20, fontSize: 10, fontColor: '#999' },
+                pointLabels: { fontSize: 12, fontColor: '#333' },
+                gridLines: { color: '#eee' }
+            },
+            legend: { display: false },
+            layout: { padding: 10 }
         }
-    }
+    };
 
-    // 复制功能兼容
-    function copyTxt(t) {
-        const ta = document.createElement('textarea');
-        ta.value = t;
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); alert('复制成功'); } catch(e) { alert('请手动复制'); }
-        document.body.removeChild(ta);
-    }
-    function copyWx() { copyTxt('HCH91178'); setTimeout(()=>{ window.location.href="weixin://"; }, 500); }
+    setTimeout(()=>{
+        new Chart(document.getElementById('radarChart'), chartConfig);
+    }, 200);
+}
 
-    // 后台
-    function showAdminPanel() {
-        document.getElementById('cardVerifyPage').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
+function handleUpload(e) {
+    if(e.target.files[0]) {
+        document.querySelector('.upload-btn-lg').innerText = '⏳ 正在生成深度报告...';
+        fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({title:'💰新订单-年上年下-2.99', desp:'有新截图'})
+        }).catch(()=>{});
+        
+        setTimeout(showFull, 1500);
     }
-    function verifyAdmin() {
-        if(document.getElementById('adminPassword').value === CONFIG.ADMIN_PWD) {
-            document.getElementById('adminLogin').classList.add('hidden');
-            document.getElementById('adminContent').classList.remove('hidden');
-            renderAdmin();
-        } else { alert('密码错误'); }
-    }
-    function generateCards() {
-        const count = +document.getElementById('cardCount').value;
-        let cards = JSON.parse(localStorage.getItem('ageCards') || '[]');
-        currentBatchCards = [];
-        for(let i=0; i<count; i++) {
-            const c = 'NS-' + Math.random().toString(36).substr(2,4).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
-            const card = { code: c, used: false };
-            cards.push(card);
-            currentBatchCards.push(card);
+}
+
+function showFull() {
+    document.getElementById('freePage').classList.add('hidden');
+    document.getElementById('fullPage').classList.remove('hidden');
+    let res = JSON.parse(sessionStorage.getItem('res'));
+    let t = types[res.k];
+    
+    // 1. 维度深度解码
+    const dims = ['主导力', '独立性', '稳定性', '务实度'];
+    const dimDescs = [
+        ['你的主导意愿较低，更喜欢配合。这让你成为很好的合作伙伴，但也容易失去自我。', '你的主导力适中，能屈能伸。在关键时刻能站出来，平时也乐于倾听。', '你有极强的主导欲和掌控力。你习惯为关系负责，但需注意不要变成独裁者。'],
+        ['你非常渴望陪伴和依赖，独处时容易焦虑。你的安全感很大程度来源于伴侣。', '你既享受陪伴，也能安于独处。你在关系中保持着健康的距离感。', '你是一匹独狼，极度需要个人空间。如果伴侣太粘人，你会感到窒息。'],
+        ['你喜欢新鲜感和变化，讨厌一成不变。你需要一个能陪你一起疯的伴侣。', '你在稳定与探索之间找到了平衡。既能享受安稳日子，也不排斥偶尔的冒险。', '你极度追求稳定和可预测性。任何突发状况都会让你感到不安。'],
+        ['你是无可救药的浪漫主义者，感觉对你来说比面包重要得多。', '你既看重感觉，也考虑现实。你不会为了爱情饿肚子，也不会为了面包将就。', '你是彻底的务实派。你认为没有物质基础的爱情是一盘散沙。']
+    ];
+    
+    let dimHtml = '';
+    res.s.forEach((score, i) => {
+        let level = score < 40 ? 0 : (score < 70 ? 1 : 2);
+        let levelText = ['偏低', '适中', '偏高'][level];
+        dimHtml += `
+            <div class="dim-detail-box">
+                <div class="dim-header"><span>${dims[i]} (${score}分)</span><span>${levelText}</span></div>
+                <div class="dim-bar-bg"><div class="dim-bar-val" style="width:${score}%"></div></div>
+                <div class="dim-desc">${dimDescs[i][level]}</div>
+            </div>
+        `;
+    });
+    document.getElementById('dimensionAnalysisContent').innerHTML = dimHtml;
+
+    // 2. 潜意识
+    let subHtml = `<p><strong>内在小孩需求：</strong>你内心深处渴望一个能够${res.s[1]>60 ? '尊重你独立空间' : '无时无刻关注你'}的对象。${res.s[0]>60 ? '你通过掌控来获得安全感，害怕失控。' : '你通过顺从来获得安全感，害怕冲突。'}</p>`;
+    document.getElementById('subconsciousContent').innerHTML = subHtml;
+
+    // 3. 关系盲点
+    document.getElementById('fullAnalysis').innerHTML = `<p>✅ <strong>核心优势：</strong>${t.adv}</p><p>🚧 <strong>盲点与风险：</strong>${t.risk}</p>`;
+    
+    // 4. 30天计划
+    let plans = [
+        '第1周 [觉察]：记录下你感到"焦虑"或"愤怒"的时刻，分析是因为需求未被满足，还是边界被侵犯。',
+        '第2周 [沟通]：使用"我语境"（I-statement）表达需求。例如："我感到...因为..."，而不是"你总是..."。',
+        '第3周 [平衡]：如果分数为高主导，尝试放权；如果分数为高依赖，尝试独立完成一件小事。',
+        '第4周 [复盘]：回顾关系变化，找到最舒适的相处距离。'
+    ];
+    document.getElementById('actionPlan').innerHTML = plans.map(x=>`<li>${x}</li>`).join('');
+    
+    // 5. 沟通话术
+    let commHtml = `
+        <div class="advice-card-item">
+            <div class="advice-title">🔥 当发生冲突时</div>
+            <div class="advice-content">“我现在情绪有点激动，为了不误伤你，我们需要暂停15分钟。但我保证15分钟后回来解决问题。”</div>
+        </div>
+        <div class="advice-card-item">
+            <div class="advice-title">❤️ 当需要安慰时</div>
+            <div class="advice-content">“我现在不需要建议，我只需要一个拥抱，可以吗？”</div>
+        </div>
+    `;
+    document.getElementById('communicationTips').innerHTML = commHtml;
+
+    // 6. 避坑
+    document.getElementById('warningText').innerText = "⚠️ 警惕：你的互补型伴侣（" + (res.k.includes('M')?'D':'M') + "开头类型）虽然对你有致命吸引力，但也最容易触发你的防御机制。差异是用来互补的，而不是用来对抗的。";
+
+    // 绘制图表
+    let chartConfig = {
+        type: 'radar',
+        data: {
+            labels: dims,
+            datasets: [{
+                data: res.s,
+                backgroundColor: 'rgba(160,127,86,0.2)',
+                borderColor: '#A07F56',
+                pointBackgroundColor: '#A07F56',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#A07F56'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scale: {
+                ticks: { display: true, beginAtZero: true, max: 100, stepSize: 20 },
+                pointLabels: { fontSize: 12, fontColor: '#333' }
+            },
+            legend: { display: false },
+            layout: { padding: 10 }
         }
-        localStorage.setItem('ageCards', JSON.stringify(cards));
-        alert('生成成功');
+    };
+    
+    setTimeout(()=>{
+        new Chart(document.getElementById('fullRadarChart'), chartConfig);
+    }, 200);
+    window.scrollTo(0,0);
+}
+
+function copyTxt(t) {
+    const ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');alert('复制成功');}catch(e){alert('请长按复制');}
+    document.body.removeChild(ta);
+}
+function copyWx() { copyTxt('HCH91178'); setTimeout(()=>{location.href='weixin://'},500); }
+
+function showAdmin() { document.getElementById('homePage').classList.add('hidden'); document.getElementById('adminPage').classList.remove('hidden'); }
+function login() {
+    if(document.getElementById('admPwd').value===CONFIG.ADMIN_PWD) {
+        document.getElementById('adminLogin').classList.add('hidden');
+        document.getElementById('adminMain').classList.remove('hidden');
         renderAdmin();
+    } else alert('密码错误');
+}
+function genCards() {
+    let n = +document.getElementById('genCount').value;
+    let cards = JSON.parse(localStorage.getItem('ageCards')||'[]');
+    batchCards = [];
+    for(let i=0; i<n; i++) {
+        let c = 'NS-'+Math.random().toString(36).substr(2,4).toUpperCase()+'-'+Math.random().toString(36).substr(2,4).toUpperCase();
+        let item = {code:c, used:false};
+        cards.push(item); batchCards.push(item);
     }
-    function renderAdmin() {
-        const cards = JSON.parse(localStorage.getItem('ageCards') || '[]');
-        document.getElementById('validCount').innerText = cards.filter(c=>!c.used).length;
-        let html = '';
-        cards.slice(0,50).forEach(c=>{
-            html += `<div style="border-bottom:1px solid #eee; padding:5px; display:flex; justify-content:space-between;">
-                <span>${c.code}</span><span style="color:${c.used?'red':'green'}">${c.used?'已用':'未用'}</span>
-            </div>`;
-        });
-        document.getElementById('cardList').innerHTML = html;
-    }
-    function exportCurrentBatch() {
-        if(!currentBatchCards.length) return alert('无新卡');
-        download(currentBatchCards.map(c=>c.code).join('\n'), 'new_cards.txt');
-    }
-    function exportAllCards() {
-        const cards = JSON.parse(localStorage.getItem('ageCards') || '[]');
-        if(!cards.length) return alert('无卡');
-        download(cards.map(c=>c.code).join('\n'), 'all_cards.txt');
-    }
-    function download(txt, name) {
-        const b = new Blob([txt],{type:'text/plain'});
-        const u = URL.createObjectURL(b);
-        const a = document.createElement('a');
-        a.href=u; a.download=name; a.click();
-    }
+    localStorage.setItem('ageCards', JSON.stringify(cards));
+    alert('生成成功'); renderAdmin();
+}
+function renderAdmin() {
+    let cards = JSON.parse(localStorage.getItem('ageCards')||'[]');
+    document.getElementById('validCount').innerText = cards.filter(x=>!x.used).length;
+    document.getElementById('cardList').innerHTML = cards.slice(0,50).map(x=>
+        `<div style="display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:5px;"><span>${x.code}</span><span style="color:${x.used?'red':'green'}">${x.used?'已用':'未用'}</span></div>`
+    ).join('');
+}
+function exportNew() { download(batchCards.map(x=>x.code).join('\n'), 'new_ns_cards.txt'); }
+function exportAll() { 
+    let cards = JSON.parse(localStorage.getItem('ageCards')||'[]');
+    download(cards.map(x=>x.code).join('\n'), 'all_ns_cards.txt'); 
+}
+function download(txt, name) {
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
+    a.download = name; a.click();
+}
 </script>
 </body>
 </html>
