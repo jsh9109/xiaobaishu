@@ -225,46 +225,60 @@
         .admin-stat { background: #F5F5F5; padding: 8px; text-align: center; border-radius: 6px; margin-bottom: 12px; font-size: 0.9em; }
         #wx-guide { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; text-align: center; color: #fff; display: none; padding-top: 20px; }
 
-        /* === 深度付费报告专属样式 (大幅增强) === */
-        .report-section { margin-bottom: 30px; border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; }
-        .report-section:last-child { border-bottom: none; }
+        /* === 深度付费报告专属样式 (排版精修) === */
+        .report-section { margin-bottom: 35px; border-bottom: 1px dashed #e0e0e0; padding-bottom: 25px; }
+        .report-section:last-child { border-bottom: none; margin-bottom: 0; }
         
         .report-title { 
-            font-size: 1.25em; font-weight: 800; color: #4A3B32; margin-bottom: 15px; 
+            font-size: 1.3em; font-weight: 800; color: #4A3B32; margin-bottom: 20px; 
             border-left: 5px solid var(--primary); padding-left: 12px; display: flex; align-items: center;
+            background: linear-gradient(90deg, #FFFBF5 0%, #FFF 100%); padding: 10px; border-radius: 0 8px 8px 0;
         }
         
         .report-p {
-            font-size: 0.95em; color: #555; line-height: 1.8; text-align: justify; margin-bottom: 15px;
+            font-size: 1em; color: #555; line-height: 1.8; text-align: justify; margin-bottom: 15px; text-indent: 0;
         }
         
+        /* 深度卡片样式 */
         .deep-card {
-            background: #FAFAFA; border-radius: 12px; padding: 20px; margin-bottom: 15px;
-            border: 1px solid #EEE; position: relative;
+            background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px;
+            border: 1px solid #F0E6D8; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
         .deep-card-title {
-            font-weight: bold; color: var(--primary); margin-bottom: 10px; font-size: 1.05em;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .deep-tag {
-            background: #EFEBE5; font-size: 0.8em; padding: 2px 8px; border-radius: 4px; color: #5D4037;
+            font-weight: bold; color: var(--primary); margin-bottom: 12px; font-size: 1.1em;
+            display: flex; align-items: center; border-bottom: 1px solid #F5E8D6; padding-bottom: 8px;
         }
         
-        /* 维度分析条 */
-        .dim-box { margin-bottom: 20px; }
-        .dim-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.9em; font-weight: bold; color: #444; }
-        .dim-progress { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-        .dim-val { height: 100%; background: linear-gradient(90deg, #D55D30, #A07F56); border-radius: 4px; }
-        .dim-text { font-size: 0.9em; color: #666; line-height: 1.6; text-align: justify; background: #FFFBF5; padding: 10px; border-radius: 8px; }
+        /* 维度分析条 (排版优化) */
+        .dim-detail-box { margin-bottom: 20px; background: #FAFAFA; padding: 15px; border-radius: 10px; }
+        .dim-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px; color: #444; font-size: 0.95em; }
+        .dim-bar-bg { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+        .dim-bar-val { height: 100%; background: linear-gradient(90deg, #D55D30, #A07F56); border-radius: 4px; }
+        .dim-desc { font-size: 0.95em; color: #666; line-height: 1.7; text-align: justify; }
 
-        /* 30天计划表格化 */
-        .plan-week { margin-bottom: 15px; background: #FFF; border: 1px solid #EFEBE5; border-radius: 10px; padding: 15px; }
-        .week-title { color: var(--accent); font-weight: bold; margin-bottom: 8px; font-size: 1em; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
-        .week-content { font-size: 0.9em; color: #555; line-height: 1.6; }
+        /* 心理分析框 */
+        .psych-box { 
+            background: #FDF8F2; padding: 18px; border-radius: 10px; color: #5D4037; 
+            font-size: 0.95em; line-height: 1.8; text-align: justify; margin-bottom: 15px;
+            border: 1px solid #F5E8D6;
+        }
+        
+        /* 建议卡片 */
+        .advice-card-item { 
+            background: #FAFAFA; padding: 18px; border-radius: 10px; margin-bottom: 15px; 
+            border-left: 4px solid var(--accent); box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .advice-title { font-weight: bold; color: #333; margin-bottom: 8px; font-size: 1em; }
+        .advice-content { font-size: 0.95em; color: #555; line-height: 1.6; }
 
         .quote-box {
-            font-style: italic; color: #888; border-left: 3px solid #ccc; padding-left: 15px; margin: 20px 0; font-size: 0.9em;
+            font-style: italic; color: #888; border-left: 3px solid #ccc; padding: 15px 20px; 
+            margin: 20px 0; font-size: 0.95em; background: #f9f9f9; border-radius: 0 8px 8px 0;
         }
+        
+        .plan-week { margin-bottom: 20px; background: #FFF; border: 1px solid #EFEBE5; border-radius: 12px; padding: 18px; }
+        .week-title { color: var(--accent); font-weight: bold; margin-bottom: 10px; font-size: 1.05em; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
+        .week-content { font-size: 0.95em; color: #555; line-height: 1.7; }
     </style>
 </head>
 <body>
@@ -452,11 +466,11 @@
         <div class="report-section">
             <div class="report-title">🧠 第二章：潜意识与依恋需求</div>
             <div class="deep-card">
-                <div class="deep-card-title">你的“内在小孩”在渴望什么？</div>
+                <div class="deep-card-title">👶 你的“内在小孩”在渴望什么？</div>
                 <div id="subconsciousContent" class="report-p"></div>
             </div>
             <div class="deep-card">
-                <div class="deep-card-title">你的依恋模式分析</div>
+                <div class="deep-card-title">🧩 你的依恋模式分析</div>
                 <div id="attachmentContent" class="report-p"></div>
             </div>
         </div>
@@ -526,7 +540,7 @@ const questions = [
     {t:'长时间独处不感到焦虑', d:1}, {t:'有独立朋友圈不需要伴侣', d:1}, {t:'需频繁确认爱和忠诚', d:1, r:1}, {t:'不秒回信息会不安', d:1, r:1}, {t:'通常自己解决问题', d:1},
     {t:'没伴侣很难做重要事', d:1, r:1}, {t:'希望伴侣完全开放社交', d:1, r:1}, {t:'轻松处理伴侣不在身边', d:1}, {t:'常担心伴侣离开', d:1, r:1}, {t:'保持心理距离', d:1},
     {t:'追求稳定可预测', d:2}, {t:'喜欢尝试冒险活动', d:2, r:1}, {t:'看重潜力而非经验', d:2, r:1}, {t:'坚持固定习惯', d:2}, {t:'喜欢分享经验给伴侣', d:2},
-    {t:'愿改变自己适应伴侣', d:2, r:1}, {t:'喜欢充满惊喜', d:2, r:1}, {t:'喜欢成熟有阅历的', d:2}, {t:'不喜欢发展太快', d:2}, {t:'看重活力激情', d:2, r:1},
+    {t:'愿改变自己适应伴侣', d:2, r:1}, {t:'喜欢充满惊喜', d:2, r:1}, {t:'喜欢成熟有阅历', d:2}, {t:'不喜欢发展太快', d:2}, {t:'看重活力激情', d:2, r:1},
     {t:'考虑经济和职业规划', d:3}, {t:'相信感觉而非数据', d:3, r:1}, {t:'有详细未来计划', d:3}, {t:'看重情感连接', d:3, r:1}, {t:'常幻想完美爱情', d:3, r:1},
     {t:'看重对方提供稳定生活', d:3}, {t:'脚踏实地解决问题', d:3}, {t:'承担务实角色(记账等)', d:3}, {t:'很少考虑长期', d:3, r:1}, {t:'愿为爱放弃物质', d:3, r:1}
 ];
@@ -705,22 +719,21 @@ function handleUpload(e) {
         document.querySelector('.upload-btn-lg').innerText = '⏳ 正在分析数据...';
         fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
             method:'POST', headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({title:'💰新订单-年上年下-V11.0', desp:'有新截图'})
+            body:JSON.stringify({title:'💰新订单-年上年下-V11.1', desp:'有新截图'})
         }).catch(()=>{});
         
         setTimeout(showFull, 1500);
     }
 }
 
-// === 核心修改：生成 3000字 深度报告 ===
 function showFull() {
     document.getElementById('freePage').classList.add('hidden');
     document.getElementById('fullPage').classList.remove('hidden');
     let res = JSON.parse(sessionStorage.getItem('res'));
     let t = types[res.k];
-    let s = res.s; // 分数数组
+    let s = res.s;
 
-    // 1. 生成四维深度解读 (动态生成长文)
+    // 1. 维度深度解码
     let dimHtml = '';
     const dims = ['主导力', '独立性', '稳定性', '务实度'];
     const dimDetails = [
@@ -759,7 +772,7 @@ function showFull() {
     });
     document.getElementById('dimensionAnalysisContent').innerHTML = dimHtml;
 
-    // 2. 潜意识与依恋 (长文本)
+    // 2. 潜意识与依恋
     let subText = `你的内在小孩极度渴望被<strong>${s[1]>50 ? '尊重和看见' : '呵护和关注'}</strong>。
     ${s[0]>60 ? '你的掌控欲其实是一种防御机制，用来抵御童年时期可能经历过的无助感。你害怕一旦放手，事情就会变得糟糕，因此你不得不让自己变得强大。' : '你的顺从其实是一种生存策略，源于潜意识里对冲突的恐惧。你担心如果坚持自我，就会失去对方的爱，因此你习惯性地压抑自己的需求。'}
     <br><br>
@@ -770,7 +783,7 @@ function showFull() {
     // 3. 关系盲点
     document.getElementById('fullAnalysis').innerHTML = `<p>✅ <strong>核心优势：</strong>${t.adv}</p><p>🚧 <strong>盲点与风险：</strong>${t.risk}</p><p>你的务实度（${s[3]}）决定了你在做决策时更看重${s[3]>60 ? '长期收益和稳定性，这让你在关系中非常负责，但有时会显得功利' : '当下的情感体验和直觉，这让你充满魅力，但容易忽视潜在的现实风险'}。</p>`;
 
-    // 4. 30天计划 (极度详细)
+    // 4. 30天计划
     let plans = `
         <div class="plan-week">
             <div class="week-title">📅 第1周：自我觉察与去习惯化</div>
